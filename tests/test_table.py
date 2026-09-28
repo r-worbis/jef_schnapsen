@@ -115,6 +115,24 @@ class RulesAndViewTests(unittest.TestCase):
         hidden = match.deal.hands["computer"] + match.deal.talon
         for hidden_card in hidden:
             self.assertNotIn(hidden_card.label, payload)
+        self.assertEqual(view["jev"], {"rules": "", "cards": "", "answers": [], "failed": False})
+
+    def test_requested_computer_card_is_only_in_the_jev_cards_text(self):
+        match = seated(
+            "computer",
+            [card("Pik", "Ass"), card("Pik", "König"), card("Pik", "Dame"), card("Pik", "Bube"), card("Kreuz", "Ass")],
+            [card("Herz", "Bube"), card("Karo", "König"), card("Karo", "Dame"), card("Karo", "Bube"), card("Kreuz", "König")],
+            card("Herz", "Ass"),
+            [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
+        )
+        perform_computer_turn(match, FakeClient(["play:Karo-König"]))
+        view = human_view(match)
+        held = "Herz Bube"
+        self.assertIn(held, [item.label for item in match.deal.hands["computer"]])
+        self.assertIn(held, view["jev"]["cards"])
+        rest = dict(view)
+        rest["jev"] = {**view["jev"], "cards": ""}
+        self.assertNotIn(held, json.dumps(rest))
 
     def test_two_game_points_count_down_from_seven(self):
         match = match_with_deal("computer", full_pack())
@@ -228,6 +246,60 @@ class PlayerTests(unittest.TestCase):
             perform_computer_turn(self.match)
         self.assertTrue(captured.get("api_key") == key)
 
+    def test_kept_exchange_records_answers_failures_and_survives_a_missing_key(self):
+        key = require_key()
+        client = FakeClient(["play:Karo-König"])
+        perform_computer_turn(self.match, client)
+        exchange = self.match.jev_exchange
+        self.assertIsNotNone(exchange)
+        self.assertEqual(exchange.rules, RULES)
+        self.assertIn("Herz Bube", exchange.cards)
+        self.assertIn("Karo König", exchange.cards)
+        self.assertEqual(exchange.answers, ["play:Karo-König"])
+        self.assertFalse(exchange.failed)
+        self.assertNotIn(key, exchange.rules)
+        self.assertNotIn(key, exchange.cards)
+        self.assertNotIn(key, "".join(exchange.answers))
+        self.assertIn(RULES, client.calls[0]["state"])
+        self.assertIn("Herz Bube", client.calls[0]["state"])
+        self.assertEqual(self.match.deal.current_trick, [("computer", card("Karo", "König"))])
+
+        retried = seated(
+            "computer",
+            [card("Pik", "Ass"), card("Pik", "König"), card("Pik", "Dame"), card("Pik", "Bube"), card("Kreuz", "Ass")],
+            [card("Herz", "Bube"), card("Karo", "König"), card("Karo", "Dame"), card("Karo", "Bube"), card("Kreuz", "König")],
+            card("Herz", "Ass"),
+            [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
+        )
+        perform_computer_turn(retried, FakeClient(["nope", "play:Karo-König"]))
+        self.assertEqual(retried.jev_exchange.answers, ["nope", "play:Karo-König"])
+        self.assertFalse(retried.jev_exchange.failed)
+        self.assertEqual(retried.jev_exchange.rules, RULES)
+        self.assertIn("Your cards:", retried.jev_exchange.cards)
+        self.assertEqual(retried.deal.current_trick[0][1], card("Karo", "König"))
+
+        errored = seated(
+            "computer",
+            [card("Pik", "Ass"), card("Pik", "König"), card("Pik", "Dame"), card("Pik", "Bube"), card("Kreuz", "Ass")],
+            [card("Herz", "Bube"), card("Karo", "König"), card("Karo", "Dame"), card("Karo", "Bube"), card("Kreuz", "König")],
+            card("Herz", "Ass"),
+            [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
+        )
+        legal = sorted(legal_action_ids(errored))
+        perform_computer_turn(errored, FakeClient([RuntimeError("down")]))
+        self.assertEqual(errored.jev_exchange.answers, [])
+        self.assertTrue(errored.jev_exchange.failed)
+        self.assertTrue(errored.choice_replaced)
+        self.assertEqual(errored.deal.current_trick[0][1].token, legal[0].split(":")[-1])
+
+        kept = errored.jev_exchange
+        errored.deal.to_play = "computer"
+        with patch("schnapsen.player.read_api_key", return_value=""):
+            perform_computer_turn(errored, FakeClient(["play:Karo-König"]))
+        self.assertIs(errored.jev_exchange, kept)
+        self.assertEqual(errored.jev_exchange.answers, [])
+        self.assertTrue(errored.jev_exchange.failed)
+
 
 def serve(table):
     httpd = make_server(table, 0)
@@ -274,6 +346,13 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(status, 200)
             self.assertIn(b"your-hand", page)
             self.assertIn(b"jef.api", page)
+            self.assertIn(b"Jev anzeigen", page)
+            self.assertIn(b"Jev ausblenden", page)
+            self.assertIn("Spielregeln".encode("utf-8"), page)
+            self.assertIn("Karten und Optionen".encode("utf-8"), page)
+            self.assertIn("Ergebnis".encode("utf-8"), page)
+            self.assertIn("Noch keine Anfrage.".encode("utf-8"), page)
+            self.assertIn("Die Anfrage ist fehlgeschlagen.".encode("utf-8"), page)
             self.assertNotIn(b"TYPESAFE_API_KEY", page)
             status, view = request(base + "/api/state")
             self.assertEqual(status, 200)
@@ -328,6 +407,29 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(status, 200)
             self.assertEqual(seen["eyes"]["human"], 15)
             self.assertEqual(seen["trick"], [])
+        finally:
+            stop(httpd)
+
+    def test_state_keeps_the_jev_exchange_after_a_computer_turn(self):
+        trump = card("Herz", "Bube")
+        talon = [card("Kreuz", "Ass"), card("Kreuz", "Zehner"), card("Kreuz", "König")]
+        human = [card("Karo", "Ass"), card("Pik", "Dame"), card("Pik", "König"), card("Pik", "Zehner"), card("Pik", "Bube")]
+        computer = [card("Karo", "König"), card("Pik", "Ass"), card("Herz", "Zehner"), card("Karo", "Dame"), card("Karo", "Bube")]
+        match = seated("human", human, computer, trump, talon)
+        client = FakeClient(["play:Karo-König"])
+        table = Table(match, client)
+        httpd, base = serve(table)
+        try:
+            status, played = request(base + "/api/action", {"id": "play:Karo-Ass"})
+            self.assertEqual(status, 200)
+            jev = played["jev"]
+            self.assertEqual(jev["rules"], RULES)
+            self.assertIn("Karo König", jev["cards"])
+            self.assertEqual(jev["answers"], ["play:Karo-König"])
+            self.assertFalse(jev["failed"])
+            status, again = request(base + "/api/state")
+            self.assertEqual(status, 200)
+            self.assertEqual(again["jev"], jev)
         finally:
             stop(httpd)
 

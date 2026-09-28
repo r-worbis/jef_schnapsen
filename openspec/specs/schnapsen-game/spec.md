@@ -64,11 +64,11 @@ While the talon is still open and cards remain to draw, the follower SHALL be al
 
 ### Requirement: Draw after an open trick
 
-After a trick while the talon is open and the winner does not end the deal, the winner SHALL draw the top talon card and the opponent SHALL draw the next card. The face-up trump SHALL be the last card drawn. No seat SHALL draw after the talon is closed or after it has been exhausted.
+After a trick while the talon is open and the winner does not already have at least 66 counting eyes, the winner SHALL draw the top talon card and the opponent SHALL draw the next card. The face-up trump SHALL be the last card drawn. No seat SHALL draw after the talon is closed or after it has been exhausted.
 
 #### Scenario: Winner draws first
 
-- **WHEN** a trick is won and at least two cards remain in the talon, and the winner does not declare the deal over
+- **WHEN** a trick is won, the winner has fewer than 66 counting eyes, and at least two cards remain in the talon
 - **THEN** the winner receives the first of those cards and the opponent receives the second
 
 #### Scenario: No draw from a closed talon
@@ -134,27 +134,32 @@ A seat that is about to lead SHALL be allowed to close the talon when at least t
 
 #### Scenario: Award uses eyes at closing
 
-- **WHEN** the closer later declares at least 66 eyes and the opponent had 33 or more eyes when the talon was closed
+- **WHEN** the closer later reaches at least 66 counting eyes and the opponent had 33 or more eyes when the talon was closed
 - **THEN** the closer wins one game point even if the opponent's later tricks would have changed that total
 
 ### Requirement: Declare sixty-six
 
-After a seat wins a trick or declares a marriage, and that seat's counting eyes are at least 66, that seat SHALL be allowed to end the deal before the next card is led. The declarer SHALL then win three game points if the opponent has won no trick, two if the opponent has 32 or fewer eyes, and one if the opponent has 33 or more. A declaration made with fewer than 66 eyes SHALL end the deal, and the opponent SHALL win the number of game points the declarer would have won had the declaration been correct. After a closed talon, an opponent who ends the deal before the closer reaches 66 SHALL win three game points if the opponent had won no trick at the moment of closing, and two otherwise.
+After a seat wins a trick or declares a marriage that counts, if that seat's counting eyes are at least 66, the game SHALL end the deal at once. No seat SHALL choose to continue the deal or to declare 66. Game points SHALL be awarded as for a correct declaration: three if the opponent has won no trick, two if the opponent has 32 or fewer eyes, and one if the opponent has 33 or more. After a closed talon, if the opponent of the closer reaches 66 first, that opponent SHALL win three game points if they had won no trick at the moment of closing, and two otherwise. A false declaration SHALL NOT be offered.
 
 #### Scenario: Opponent has no trick
 
-- **WHEN** a seat declares with at least 66 counting eyes and the opponent has won no trick
-- **THEN** the declarer wins three game points and the deal ends
+- **WHEN** a seat's counting eyes reach at least 66 and the opponent has won no trick
+- **THEN** that seat wins three game points and the deal ends without a further action
 
 #### Scenario: Opponent has thirty-three
 
-- **WHEN** a seat declares with at least 66 counting eyes and the opponent has 33 or more eyes
-- **THEN** the declarer wins one game point
+- **WHEN** a seat's counting eyes reach at least 66 and the opponent has 33 or more eyes
+- **THEN** that seat wins one game point and the deal ends without a further action
 
-#### Scenario: False declaration
+#### Scenario: Marriage that reaches sixty-six
 
-- **WHEN** a seat declares with fewer than 66 counting eyes and the opponent has 33 or more eyes
-- **THEN** the deal ends and the opponent wins one game point
+- **WHEN** a seat that has already won a trick declares a marriage that brings its counting eyes to at least 66
+- **THEN** the deal ends at once and that seat does not lead a marriage card
+
+#### Scenario: Computer answer reaches sixty-six only after it is seen
+
+- **WHEN** the computer seat's answering card would give the trick winner at least 66 counting eyes
+- **THEN** the deal stays in play until the human seat confirms they have seen the answer, and after that confirmation the deal ends under this requirement
 
 #### Scenario: Closer fails
 
@@ -163,17 +168,56 @@ After a seat wins a trick or declares a marriage, and that seat's counting eyes 
 
 ### Requirement: Last trick
 
-If the talon was not closed and no seat has declared before the last card is led, the last card SHALL be played. The winner of that last trick SHALL win the deal and SHALL score game points by the same thresholds as a correct declaration, using each seat's counting eyes. This last-trick win SHALL NOT apply when the talon was closed.
+If the talon was not closed and neither seat has reached 66 counting eyes before the last card is led, the last card SHALL be played. The winner of that last trick SHALL win the deal and SHALL score game points by the same thresholds as a deal ended at 66, using each seat's counting eyes. This last-trick win SHALL NOT apply when the talon was closed.
 
 #### Scenario: Last trick awards the deal
 
-- **WHEN** the talon is exhausted, no seat has declared, and a seat wins the trick of the last two cards
+- **WHEN** the talon is exhausted, neither seat has reached 66, and a seat wins the trick of the last two cards
 - **THEN** that seat wins the deal
 
 #### Scenario: Closed talon ignores the last trick
 
-- **WHEN** the talon was closed and neither seat declares 66
+- **WHEN** the talon was closed and neither seat reaches 66
 - **THEN** the winner is the opponent of the closer, not whoever took the last trick
+
+### Requirement: Hold a computer answer until the human has seen it
+
+When the human seat leads a card and the computer seat plays a card in answer, the game SHALL leave both cards in the current trick. Until the human seat confirms they have seen that answer, the game SHALL NOT award the trick, change either seat's eyes, draw any card, change who leads next, or end the deal because of that trick. Confirmation SHALL be legal only for the human seat, and only while such an answer is waiting. After confirmation, the game SHALL award the trick under the existing taking, drawing, declaration, and last-trick rules. When the human seat follows a lead by the computer seat, the game SHALL award the trick as soon as the human seat's card is played, with no confirmation.
+
+#### Scenario: Computer answer stays uncollected
+
+- **WHEN** the human seat leads a card and the computer seat plays an answering card
+- **THEN** both cards remain in the current trick, neither seat's eyes change, no card is drawn, the leader is unchanged, and the deal is not over
+
+#### Scenario: Confirmation collects and counts the trick
+
+- **WHEN** an answering card from the computer seat is waiting and the human seat confirms they have seen it, and that card does not win the trick, and the talon is still open with cards left to draw
+- **THEN** the trick is awarded to the human seat, the human seat's eyes include both cards, the human seat draws first, and the human seat leads next
+
+#### Scenario: A winning answer is counted only after confirmation
+
+- **WHEN** an answering card from the computer seat is waiting, that card wins the trick, and the winner would have at least 66 counting eyes after the award
+- **THEN** the eyes stay below that award and the deal stays in play until the human seat confirms
+
+#### Scenario: The last trick waits for confirmation
+
+- **WHEN** the computer seat's answering card is the last card of a deal whose talon was not closed, and the human seat has not confirmed
+- **THEN** the deal is not over
+
+#### Scenario: Confirmation of the last trick ends the deal
+
+- **WHEN** the human seat confirms they have seen the computer seat's answering card on that last trick
+- **THEN** the winner of the trick wins the deal under the last-trick scoring rules
+
+#### Scenario: A human follow is still collected at once
+
+- **WHEN** the computer seat leads a card and the human seat plays a following card
+- **THEN** the trick is awarded immediately and no confirmation is required
+
+#### Scenario: Confirmation is refused when nothing is waiting
+
+- **WHEN** no computer answer is waiting and a confirmation is submitted
+- **THEN** the confirmation is refused and the cards, eyes, and scores are unchanged
 
 ### Requirement: Reject illegal actions
 

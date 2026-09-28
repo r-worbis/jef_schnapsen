@@ -34,3 +34,35 @@ definitions included so the file can be opened on its own.
 | Kreuz-Dame | club_queen |
 | Kreuz-Bube | club_jack |
 | back | back |
+
+## Doppeldeutsche faces
+
+The twenty files in `doppeldeutsch/` are the Wilhelm-Tell faces from
+[Doppeldeutsche Karten](https://schnopsn.com/doppeldeutsche-karten), taken from
+`https://schnopsn.com/images/ddeutsch/`. That page does not publish a reuse
+license. A picture that was only the upright half is joined to a 180° copy of
+itself; a picture that was already a full card is kept as published. The shared
+`back.svg` above is used for both packs.
+
+| Engine token | Source file |
+| --- | --- |
+| Herz-Ass | HE11.png |
+| Herz-Zehner | HE10.png |
+| Herz-König | HE04.png |
+| Herz-Dame | HE03.png |
+| Herz-Bube | HE02.png |
+| Karo-Ass | KA11.png |
+| Karo-Zehner | KA10.png |
+| Karo-König | KA04.png |
+| Karo-Dame | KA03.png |
+| Karo-Bube | KA02.png |
+| Pik-Ass | PI11.png |
+| Pik-Zehner | PI10.png |
+| Pik-König | PI04.png |
+| Pik-Dame | PI03.png |
+| Pik-Bube | PI02.png |
+| Kreuz-Ass | KR11.png |
+| Kreuz-Zehner | KR10.png |
+| Kreuz-König | KR04.png |
+| Kreuz-Dame | KR03.png |
+| Kreuz-Bube | KR02.png |

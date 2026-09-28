@@ -7,7 +7,10 @@
     body { font: 16px/1.4 Georgia, serif; background: #1e3d2f; color: #f3ead7; margin: 24px; }
     h1 { font-size: 1.4rem; }
     p { max-width: 40em; }
+    label { display: block; margin: 12px 0; }
+    select { font: 16px/1.4 Georgia, serif; }
     .pack { display: flex; flex-wrap: wrap; gap: 12px; }
+    .pack[hidden] { display: none; }
     figure { margin: 0; width: 120px; text-align: center; }
     figcaption { margin-top: 6px; font-size: 0.85rem; }
     img { width: 110px; height: auto; background: #fff; border-radius: 8px; }
@@ -15,29 +18,79 @@
 </head>
 <body>
   <h1>Schnapsen-Kartenvorschau</h1>
-  <p>Zwanzig Bilder plus die Rückseite. Nimm dieses Blatt an, bevor der Tisch es im Spiel verwendet.</p>
-  <div class="pack">
-    <figure><img src="Herz-Ass.svg" alt="Herz-Ass"><figcaption>Herz-Ass</figcaption></figure>
-    <figure><img src="Herz-Zehner.svg" alt="Herz-Zehner"><figcaption>Herz-Zehner</figcaption></figure>
-    <figure><img src="Herz-König.svg" alt="Herz-König"><figcaption>Herz-König</figcaption></figure>
-    <figure><img src="Herz-Dame.svg" alt="Herz-Dame"><figcaption>Herz-Dame</figcaption></figure>
-    <figure><img src="Herz-Bube.svg" alt="Herz-Bube"><figcaption>Herz-Bube</figcaption></figure>
-    <figure><img src="Karo-Ass.svg" alt="Karo-Ass"><figcaption>Karo-Ass</figcaption></figure>
-    <figure><img src="Karo-Zehner.svg" alt="Karo-Zehner"><figcaption>Karo-Zehner</figcaption></figure>
-    <figure><img src="Karo-König.svg" alt="Karo-König"><figcaption>Karo-König</figcaption></figure>
-    <figure><img src="Karo-Dame.svg" alt="Karo-Dame"><figcaption>Karo-Dame</figcaption></figure>
-    <figure><img src="Karo-Bube.svg" alt="Karo-Bube"><figcaption>Karo-Bube</figcaption></figure>
-    <figure><img src="Pik-Ass.svg" alt="Pik-Ass"><figcaption>Pik-Ass</figcaption></figure>
-    <figure><img src="Pik-Zehner.svg" alt="Pik-Zehner"><figcaption>Pik-Zehner</figcaption></figure>
-    <figure><img src="Pik-König.svg" alt="Pik-König"><figcaption>Pik-König</figcaption></figure>
-    <figure><img src="Pik-Dame.svg" alt="Pik-Dame"><figcaption>Pik-Dame</figcaption></figure>
-    <figure><img src="Pik-Bube.svg" alt="Pik-Bube"><figcaption>Pik-Bube</figcaption></figure>
-    <figure><img src="Kreuz-Ass.svg" alt="Kreuz-Ass"><figcaption>Kreuz-Ass</figcaption></figure>
-    <figure><img src="Kreuz-Zehner.svg" alt="Kreuz-Zehner"><figcaption>Kreuz-Zehner</figcaption></figure>
-    <figure><img src="Kreuz-König.svg" alt="Kreuz-König"><figcaption>Kreuz-König</figcaption></figure>
-    <figure><img src="Kreuz-Dame.svg" alt="Kreuz-Dame"><figcaption>Kreuz-Dame</figcaption></figure>
-    <figure><img src="Kreuz-Bube.svg" alt="Kreuz-Bube"><figcaption>Kreuz-Bube</figcaption></figure>
+  <p>Zwanzig Bilder plus die Rückseite. Wähle Französisch oder Doppeldeutsch, bevor der Tisch das Blatt im Spiel verwendet.</p>
+  <label>Karten
+    <select id="deck-choice">
+      <option value="franzoesisch">Französisch</option>
+      <option value="doppeldeutsch">Doppeldeutsch</option>
+    </select>
+  </label>
+  <div class="pack" id="pack-franzoesisch">
+    <figure><img src="french/Herz-Ass.svg" alt="Herz-Ass"><figcaption>Herz-Ass</figcaption></figure>
+    <figure><img src="french/Herz-Zehner.svg" alt="Herz-Zehner"><figcaption>Herz-Zehner</figcaption></figure>
+    <figure><img src="french/Herz-König.svg" alt="Herz-König"><figcaption>Herz-König</figcaption></figure>
+    <figure><img src="french/Herz-Dame.svg" alt="Herz-Dame"><figcaption>Herz-Dame</figcaption></figure>
+    <figure><img src="french/Herz-Bube.svg" alt="Herz-Bube"><figcaption>Herz-Bube</figcaption></figure>
+    <figure><img src="french/Karo-Ass.svg" alt="Karo-Ass"><figcaption>Karo-Ass</figcaption></figure>
+    <figure><img src="french/Karo-Zehner.svg" alt="Karo-Zehner"><figcaption>Karo-Zehner</figcaption></figure>
+    <figure><img src="french/Karo-König.svg" alt="Karo-König"><figcaption>Karo-König</figcaption></figure>
+    <figure><img src="french/Karo-Dame.svg" alt="Karo-Dame"><figcaption>Karo-Dame</figcaption></figure>
+    <figure><img src="french/Karo-Bube.svg" alt="Karo-Bube"><figcaption>Karo-Bube</figcaption></figure>
+    <figure><img src="french/Pik-Ass.svg" alt="Pik-Ass"><figcaption>Pik-Ass</figcaption></figure>
+    <figure><img src="french/Pik-Zehner.svg" alt="Pik-Zehner"><figcaption>Pik-Zehner</figcaption></figure>
+    <figure><img src="french/Pik-König.svg" alt="Pik-König"><figcaption>Pik-König</figcaption></figure>
+    <figure><img src="french/Pik-Dame.svg" alt="Pik-Dame"><figcaption>Pik-Dame</figcaption></figure>
+    <figure><img src="french/Pik-Bube.svg" alt="Pik-Bube"><figcaption>Pik-Bube</figcaption></figure>
+    <figure><img src="french/Kreuz-Ass.svg" alt="Kreuz-Ass"><figcaption>Kreuz-Ass</figcaption></figure>
+    <figure><img src="french/Kreuz-Zehner.svg" alt="Kreuz-Zehner"><figcaption>Kreuz-Zehner</figcaption></figure>
+    <figure><img src="french/Kreuz-König.svg" alt="Kreuz-König"><figcaption>Kreuz-König</figcaption></figure>
+    <figure><img src="french/Kreuz-Dame.svg" alt="Kreuz-Dame"><figcaption>Kreuz-Dame</figcaption></figure>
+    <figure><img src="french/Kreuz-Bube.svg" alt="Kreuz-Bube"><figcaption>Kreuz-Bube</figcaption></figure>
     <figure><img src="back.svg" alt="back"><figcaption>back</figcaption></figure>
   </div>
+  <div class="pack" id="pack-doppeldeutsch" hidden>
+    <figure><img src="doppeldeutsch/Herz-Ass.png" alt="Herz-Ass"><figcaption>Herz-Ass</figcaption></figure>
+    <figure><img src="doppeldeutsch/Herz-Zehner.png" alt="Herz-Zehner"><figcaption>Herz-Zehner</figcaption></figure>
+    <figure><img src="doppeldeutsch/Herz-König.png" alt="Herz-König"><figcaption>Herz-König</figcaption></figure>
+    <figure><img src="doppeldeutsch/Herz-Dame.png" alt="Herz-Ober"><figcaption>Herz-Ober</figcaption></figure>
+    <figure><img src="doppeldeutsch/Herz-Bube.png" alt="Herz-Unter"><figcaption>Herz-Unter</figcaption></figure>
+    <figure><img src="doppeldeutsch/Karo-Ass.png" alt="Schelle-Ass"><figcaption>Schelle-Ass</figcaption></figure>
+    <figure><img src="doppeldeutsch/Karo-Zehner.png" alt="Schelle-Zehner"><figcaption>Schelle-Zehner</figcaption></figure>
+    <figure><img src="doppeldeutsch/Karo-König.png" alt="Schelle-König"><figcaption>Schelle-König</figcaption></figure>
+    <figure><img src="doppeldeutsch/Karo-Dame.png" alt="Schelle-Ober"><figcaption>Schelle-Ober</figcaption></figure>
+    <figure><img src="doppeldeutsch/Karo-Bube.png" alt="Schelle-Unter"><figcaption>Schelle-Unter</figcaption></figure>
+    <figure><img src="doppeldeutsch/Pik-Ass.png" alt="Grün-Ass"><figcaption>Grün-Ass</figcaption></figure>
+    <figure><img src="doppeldeutsch/Pik-Zehner.png" alt="Grün-Zehner"><figcaption>Grün-Zehner</figcaption></figure>
+    <figure><img src="doppeldeutsch/Pik-König.png" alt="Grün-König"><figcaption>Grün-König</figcaption></figure>
+    <figure><img src="doppeldeutsch/Pik-Dame.png" alt="Grün-Ober"><figcaption>Grün-Ober</figcaption></figure>
+    <figure><img src="doppeldeutsch/Pik-Bube.png" alt="Grün-Unter"><figcaption>Grün-Unter</figcaption></figure>
+    <figure><img src="doppeldeutsch/Kreuz-Ass.png" alt="Eichel-Ass"><figcaption>Eichel-Ass</figcaption></figure>
+    <figure><img src="doppeldeutsch/Kreuz-Zehner.png" alt="Eichel-Zehner"><figcaption>Eichel-Zehner</figcaption></figure>
+    <figure><img src="doppeldeutsch/Kreuz-König.png" alt="Eichel-König"><figcaption>Eichel-König</figcaption></figure>
+    <figure><img src="doppeldeutsch/Kreuz-Dame.png" alt="Eichel-Ober"><figcaption>Eichel-Ober</figcaption></figure>
+    <figure><img src="doppeldeutsch/Kreuz-Bube.png" alt="Eichel-Unter"><figcaption>Eichel-Unter</figcaption></figure>
+    <figure><img src="back.svg" alt="back"><figcaption>back</figcaption></figure>
+  </div>
+  <script>
+    const deckChoice = document.getElementById("deck-choice");
+
+    function chosenDeck() {
+      return localStorage.getItem("schnapsen-deck") === "doppeldeutsch" ? "doppeldeutsch" : "franzoesisch";
+    }
+
+    function showDeck(deck) {
+      document.getElementById("pack-franzoesisch").hidden = deck !== "franzoesisch";
+      document.getElementById("pack-doppeldeutsch").hidden = deck !== "doppeldeutsch";
+      deckChoice.value = deck;
+    }
+
+    deckChoice.addEventListener("change", () => {
+      const deck = deckChoice.value === "doppeldeutsch" ? "doppeldeutsch" : "franzoesisch";
+      localStorage.setItem("schnapsen-deck", deck);
+      showDeck(deck);
+    });
+
+    showDeck(chosenDeck());
+  </script>
 </body>
 </html>

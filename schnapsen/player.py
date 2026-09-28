@@ -2,9 +2,9 @@
 
 from typesafe_sdk import Choice
 
-from schnapsen.engine import Match, action_label, apply_action, legal_action_ids
+from schnapsen.engine import JevExchange, Match, action_label, apply_action, legal_action_ids
 from schnapsen.keyfile import read_api_key
-from schnapsen.view import jev_state
+from schnapsen.view import jev_parts, jev_state
 
 
 def computer_should_move(match: Match) -> bool:
@@ -44,6 +44,8 @@ def _decide(match: Match, client: object) -> None:
     legal = legal_action_ids(match)
     if not legal:
         return
+    rules, cards = jev_parts(match)
+    match.jev_exchange = JevExchange(rules=rules, cards=cards)
     fallback = sorted(legal)[0]
     choice, failed = _ask(match, client, legal)
     if failed or choice not in legal:
@@ -71,11 +73,21 @@ def _ask(match: Match, client: object, legal: list[str]) -> tuple[str | None, bo
             },
         )
     except Exception:
+        _exchange(match).failed = True
         return None, True
     try:
-        return response.choices["play"].choice, False
+        choice = response.choices["play"].choice
     except Exception:
+        _exchange(match).failed = True
         return None, True
+    _exchange(match).answers.append(choice)
+    return choice, False
+
+
+def _exchange(match: Match) -> JevExchange:
+    exchange = match.jev_exchange
+    assert exchange is not None
+    return exchange
 
 
 def _apply_fallback(match: Match, action_id: str) -> None:

@@ -47,18 +47,17 @@ def human_view(match: Match) -> dict[str, object]:
         "canNextDeal": deal.phase == "ended" and match.match_winner is None,
         "missingKey": match.notice == "missing-key",
         "choiceReplaced": match.choice_replaced,
+        "jev": _jev_payload(match),
     }
 
 
-def jev_state(match: Match) -> str:
+def jev_parts(match: Match) -> tuple[str, str]:
     deal = match.deal
     if deal is None:
-        return RULES
+        return RULES, ""
     seat: Seat = "computer"
     opponent = other(seat)
-    lines = [
-        RULES,
-        "",
+    remainder = [
         "Your cards: " + ", ".join(card.label for card in deal.hands[seat]),
         f"Trump suit: {deal.trump_suit}",
         "Trump card: " + ("hidden" if deal.trump_card is None else deal.trump_card.label),
@@ -78,8 +77,27 @@ def jev_state(match: Match) -> str:
         "Legal actions:",
     ]
     for action_id in legal_action_ids(match):
-        lines.append(f"- {action_id}: {action_label(action_id)}")
-    return "\n".join(lines)
+        remainder.append(f"- {action_id}: {action_label(action_id)}")
+    return RULES, "\n".join(remainder)
+
+
+def jev_state(match: Match) -> str:
+    rules, remainder = jev_parts(match)
+    if not remainder:
+        return rules
+    return f"{rules}\n\n{remainder}"
+
+
+def _jev_payload(match: Match) -> dict[str, object]:
+    exchange = match.jev_exchange
+    if exchange is None:
+        return {"rules": "", "cards": "", "answers": [], "failed": False}
+    return {
+        "rules": exchange.rules,
+        "cards": exchange.cards,
+        "answers": list(exchange.answers),
+        "failed": exchange.failed,
+    }
 
 
 def _named(tricks: list[list]) -> list[list[str]]:

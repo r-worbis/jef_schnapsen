@@ -75,6 +75,14 @@ class Deal:
 
 
 @dataclass
+class JevExchange:
+    rules: str
+    cards: str
+    answers: list[str] = field(default_factory=list)
+    failed: bool = False
+
+
+@dataclass
 class Match:
     source: DeckSource
     dealer: Seat = "human"
@@ -86,6 +94,7 @@ class Match:
     match_winner: Seat | None = None
     notice: str | None = None
     choice_replaced: bool = False
+    jev_exchange: JevExchange | None = None
 
 
 @dataclass

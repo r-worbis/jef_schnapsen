@@ -1,10 +1,6 @@
-# schnapsen-card-faces Specification
+# Spec Delta
 
-## Purpose
-
-Provide license-clear twenty-card Schnapsen drawing sets (French and doppeldeutsch), a way to inspect the chosen set, and use of those drawings on the human table.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Twenty faces and one back in the project
 
@@ -58,33 +54,7 @@ The human table SHALL show the matching face drawing from the pack the player ha
 - **WHEN** the human seat views a dealt table after either pack is selected and the computer still holds five cards
 - **THEN** the five computer cards and the face-down talon cards use the shared back drawing and no computer face drawing
 
-### Requirement: Deck preview copy is German
-
-The deck preview SHALL present its page title, heading, instructional paragraph, and pack-choice labels in German. French face captions SHALL remain the existing German card tokens. Doppeldeutsche face captions SHALL use the mapped names: Herz stays Herz, Karo is Schelle, Pik is Grün, Kreuz is Eichel, Dame is Ober, Bube is Unter, and Ass, Zehner, and König stay. The document language SHALL be German.
-
-#### Scenario: Preview chrome is German
-
-- **WHEN** a person opens the deck preview
-- **THEN** the heading, the instructional paragraph, and the pack-choice labels are in German and the document language is German
-
-#### Scenario: Doppeldeutsche caption uses the mapped name
-
-- **WHEN** a person chooses Doppeldeutsch on the deck preview
-- **THEN** the caption on the face that corresponds to Karo Dame is Schelle-Ober
-
-### Requirement: Doppeldeutsche faces in the project
-
-The project SHALL contain one doppeldeutsche drawing for each of the twenty pack cards. Each drawing SHALL be the German-suited face for that card under the mapping Herz stays Herz, Karo is Schelle, Pik is Grün, Kreuz is Eichel, Dame is Ober, Bube is Unter, and Ass, Zehner, and König stay. The project SHALL record the source of those drawings and the license under which they are used. The doppeldeutsche set SHALL NOT replace the French set or the shared back.
-
-#### Scenario: Doppeldeutsche pack is present
-
-- **WHEN** a person lists the vendored doppeldeutsche drawings
-- **THEN** there is exactly one face for each of the twenty pack cards
-
-#### Scenario: Doppeldeutsche source and license are recorded
-
-- **WHEN** a person opens the license record for the doppeldeutsche drawings
-- **THEN** they can read the original source and the license name
+## ADDED Requirements
 
 ### Requirement: Doppeldeutsche faces are full Tell cards
 

@@ -12,52 +12,83 @@
       --ink: #1c1915;
       --red: #9c2436;
       --gold: #e6c98a;
+      --card-w: clamp(72px, 9.9vw, 153px);
+      --card-h: calc(var(--card-w) * 104 / 74);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
+      width: 100%;
       background: radial-gradient(circle at top, #246044, var(--felt-deep) 55%);
       color: var(--cream);
       font: 16px/1.4 "Iowan Old Style", Palatino, Georgia, serif;
     }
     main {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
+      width: 100%;
+      max-width: none;
+      box-sizing: border-box;
+      padding: 12px 16px 16px;
     }
-    h1 {
+    .chrome {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 20px;
+      margin-bottom: 8px;
+    }
+    .chrome h1 {
       font-weight: 600;
       letter-spacing: 0.04em;
-      margin: 0 0 8px;
+      margin: 0;
+      font-size: 1.35rem;
     }
+    .chrome p { margin: 0; }
+    #turn-line { margin-left: auto; }
     .layout {
       display: grid;
-      grid-template-columns: 1fr 240px;
-      gap: 20px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
     }
-    @media (max-width: 800px) {
-      .layout { grid-template-columns: 1fr; }
+    .layout > section { margin-bottom: 0; }
+    .center-play {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 8px 16px;
+    }
+    .center-play h2 { margin-bottom: 6px; }
+    .stock {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .scores {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 8px;
     }
     section {
       background: rgba(0, 0, 0, 0.18);
       border: 1px solid rgba(230, 201, 138, 0.25);
       border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 16px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
     }
     h2 {
-      margin: 0 0 10px;
-      font-size: 0.95rem;
+      margin: 0 0 6px;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--gold);
     }
-    .row { display: flex; flex-wrap: wrap; gap: 8px; min-height: 108px; }
+    .row { display: flex; flex-wrap: wrap; gap: 6px; min-height: var(--card-h); }
     .card {
-      width: 74px;
-      height: 104px;
+      width: var(--card-w);
+      height: var(--card-h);
       border-radius: 8px;
       background: var(--cream);
       color: var(--ink);
@@ -88,8 +119,8 @@
       background: #f3ead7;
       color: var(--ink);
       border-radius: 12px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
     }
     .banner.alert { background: #f4d7c4; }
     .actions { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -103,58 +134,149 @@
       cursor: pointer;
     }
     .muted { opacity: 0.8; }
+    #deck-choice { font: 16px/1.4 Georgia, serif; margin-left: 6px; }
     #trick .card { outline: 2px solid var(--gold); }
-    #talon { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
-    #talon-count { flex: 1 0 100%; margin: 0; }
+    #talon { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+    #talon-count { margin: 0; font-size: 0.85rem; }
+    .talon-stack {
+      position: relative;
+      width: calc(var(--card-w) + 14px);
+      height: var(--card-h);
+    }
+    .talon-stack .card {
+      position: absolute;
+      top: 0;
+    }
+    .talon-stack .card:nth-child(1) { left: 0; z-index: 3; }
+    .talon-stack .card:nth-child(2) { left: 7px; z-index: 2; }
+    .talon-stack .card:nth-child(3) { left: 14px; z-index: 1; }
+    #jev-toggle {
+      background: var(--gold);
+      color: var(--ink);
+      border: 0;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: 600 14px/1.2 Georgia, serif;
+      cursor: pointer;
+    }
+    #jev-boxes pre {
+      white-space: pre-wrap;
+      font: 13px/1.35 ui-monospace, monospace;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      padding: 8px;
+      margin: 0 0 12px;
+      max-height: 220px;
+      overflow: auto;
+    }
   </style>
 </head>
 <body>
   <main>
-    <h1>Schnapsen</h1>
-    <p class="muted" id="turn-line">Wird gegeben…</p>
+    <div class="chrome">
+      <h1>Schnapsen</h1>
+      <p>
+        <label>Karten
+          <select id="deck-choice">
+            <option value="franzoesisch">Französisch</option>
+            <option value="doppeldeutsch">Doppeldeutsch</option>
+          </select>
+        </label>
+      </p>
+      <p class="muted" id="turn-line">Wird gegeben…</p>
+    </div>
     <div id="notice"></div>
     <div id="result"></div>
     <div class="layout">
-      <div>
-        <section>
-          <h2>Computer</h2>
-          <div id="computer-hand" class="row"></div>
-        </section>
-        <section>
-          <h2>Trumpf und Talon</h2>
-          <div class="row">
-            <div id="trump"></div>
-            <div id="talon"></div>
+      <section>
+        <h2>Computer</h2>
+        <div id="computer-hand" class="row"></div>
+      </section>
+      <section class="center-table">
+        <div class="center-play">
+          <div>
+            <h2>Trumpf und Talon</h2>
+            <div class="stock">
+              <div id="trump"></div>
+              <div id="talon"></div>
+            </div>
           </div>
-        </section>
-        <section>
-          <h2>Stich</h2>
-          <div id="trick" class="row"></div>
-        </section>
-        <section>
-          <h2>Deine Karten</h2>
-          <div id="your-hand" class="row"></div>
-          <div id="actions" class="actions"></div>
-        </section>
-      </div>
-      <aside>
-        <section>
-          <h2>Augen</h2>
-          <div id="eyes" class="stats"></div>
-        </section>
-        <section>
-          <h2>Noch benötigte Punkte</h2>
-          <div id="points" class="stats"></div>
-        </section>
-        <section>
-          <h2>Bummerl</h2>
-          <div id="bummerl" class="stats"></div>
-        </section>
-      </aside>
+          <div>
+            <h2>Stich</h2>
+            <div id="trick" class="row"></div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Deine Karten</h2>
+        <div id="your-hand" class="row"></div>
+        <div id="actions" class="actions"></div>
+      </section>
     </div>
+    <div class="scores">
+      <section>
+        <h2>Augen</h2>
+        <div id="eyes" class="stats"></div>
+      </section>
+      <section>
+        <h2>Noch benötigte Punkte</h2>
+        <div id="points" class="stats"></div>
+      </section>
+      <section>
+        <h2>Bummerl</h2>
+        <div id="bummerl" class="stats"></div>
+      </section>
+    </div>
+    <section>
+      <button id="jev-toggle" type="button">Jev anzeigen</button>
+      <div id="jev-boxes" hidden>
+        <h2>Spielregeln</h2>
+        <pre id="jev-rules"></pre>
+        <h2>Karten und Optionen</h2>
+        <pre id="jev-cards"></pre>
+        <h2>Ergebnis</h2>
+        <pre id="jev-result"></pre>
+      </div>
+    </section>
   </main>
   <script>
     let busy = false;
+    let latest = null;
+    let jevOpen = false;
+
+    function selectedDeck() {
+      return localStorage.getItem("schnapsen-deck") === "doppeldeutsch" ? "doppeldeutsch" : "franzoesisch";
+    }
+
+    function visibleName(text) {
+      if (selectedDeck() !== "doppeldeutsch" || !text) return text;
+      return text
+        .replaceAll("Den Trumpf-Buben tauschen", "Den Trumpf-Unter tauschen")
+        .replaceAll("Karo Dame", "Schelle Ober")
+        .replaceAll("Buben", "Unter")
+        .replaceAll("Bube", "Unter")
+        .replaceAll("Dame", "Ober")
+        .replaceAll("Karo", "Schelle")
+        .replaceAll("Pik", "Grün")
+        .replaceAll("Kreuz", "Eichel");
+    }
+
+    function faceUrl(token) {
+      if (selectedDeck() === "doppeldeutsch") {
+        return "/static/cards/doppeldeutsch/" + token + ".png";
+      }
+      return "/static/cards/french/" + token + ".svg";
+    }
+
+    // Only hide plain play:TOKEN text buttons (hand click covers those).
+    // Keep marriage, trump exchange, close, and every combined form.
+    function isPlainPlay(id) {
+      return /^play:[^:]+$/.test(id);
+    }
+
+    function shouldShowActionButton(id) {
+      return !isPlainPlay(id);
+    }
 
     function tokenFromLabel(label) {
       return label.replace(" ", "-");
@@ -169,9 +291,10 @@
 
     function cardFace(label, clickId) {
       const el = clickId ? document.createElement("button") : document.createElement("div");
+      const shown = visibleName(label);
       el.className = "card";
-      el.setAttribute("aria-label", label);
-      el.appendChild(cardImage("/static/cards/" + tokenFromLabel(label) + ".svg", label));
+      el.setAttribute("aria-label", shown);
+      el.appendChild(cardImage(faceUrl(tokenFromLabel(label)), shown));
       if (clickId) {
         el.dataset.id = clickId;
         el.addEventListener("click", () => sendAction(clickId));
@@ -207,6 +330,7 @@
     }
 
     function render(state) {
+      latest = state;
       const dealer = state.dealer === "human" ? "Du gibst" : "Der Computer gibt";
       const turn = state.dealOver
         ? "Blatt beendet"
@@ -246,7 +370,7 @@
         const banner = document.createElement("div");
         banner.className = "banner";
         banner.id = "computer-action";
-        banner.textContent = "Der Computer " + bits.join(", ") + ".";
+        banner.textContent = visibleName("Der Computer " + bits.join(", ") + ".");
         notice.appendChild(banner);
       }
 
@@ -288,7 +412,7 @@
       if (state.trump) trump.appendChild(cardFace(state.trump, null));
       else {
         const note = document.createElement("p");
-        note.textContent = state.closed ? "Talon zugedreht. Trumpf war " + state.trumpSuit + "." : "Trumpf " + state.trumpSuit + " wurde gezogen.";
+        note.textContent = visibleName(state.closed ? "Talon zugedreht. Trumpf war " + state.trumpSuit + "." : "Trumpf " + state.trumpSuit + " wurde gezogen.");
         trump.appendChild(note);
       }
       const talon = document.getElementById("talon");
@@ -297,8 +421,12 @@
       talonNote.id = "talon-count";
       talonNote.textContent = state.closed ? "Talon zugedreht" : "Talon: " + state.talonCount + " verdeckt";
       talon.appendChild(talonNote);
-      if (!state.closed) {
-        for (let i = 0; i < (state.talonCount || 0); i += 1) talon.appendChild(cardBack());
+      if (!state.closed && (state.talonCount || 0) > 0) {
+        const stack = document.createElement("div");
+        stack.className = "talon-stack";
+        const shown = Math.min(state.talonCount, 3);
+        for (let i = 0; i < shown; i += 1) stack.appendChild(cardBack());
+        talon.appendChild(stack);
       }
 
       const trick = document.getElementById("trick");
@@ -316,18 +444,35 @@
       stat(document.getElementById("eyes"), [["Du", state.eyes.human], ["Computer", state.eyes.computer]]);
       stat(document.getElementById("points"), [["Du", state.pointsNeeded.human], ["Computer", state.pointsNeeded.computer]]);
       stat(document.getElementById("bummerl"), [["Du", state.bummerl.human], ["Computer", state.bummerl.computer]]);
+      fillJev(state);
 
       const actions = document.getElementById("actions");
       actions.replaceChildren();
       if (state.yourTurn) {
         (state.actions || []).forEach((item) => {
+          if (!shouldShowActionButton(item.id)) return;
           const button = document.createElement("button");
           button.dataset.id = item.id;
-          button.textContent = item.label;
+          button.textContent = visibleName(item.label);
           button.addEventListener("click", () => sendAction(item.id));
           actions.appendChild(button);
         });
       }
+    }
+
+    function emptyJevText(value) {
+      return value ? value : "Noch keine Anfrage.";
+    }
+
+    function fillJev(state) {
+      const exchange = state.jev || {};
+      document.getElementById("jev-rules").textContent = emptyJevText(exchange.rules);
+      document.getElementById("jev-cards").textContent = emptyJevText(exchange.cards);
+      const lines = (exchange.answers || []).slice();
+      if (exchange.failed) lines.push("Die Anfrage ist fehlgeschlagen.");
+      document.getElementById("jev-result").textContent = lines.length ? lines.join("\n") : "Noch keine Anfrage.";
+      document.getElementById("jev-boxes").hidden = !jevOpen;
+      document.getElementById("jev-toggle").textContent = jevOpen ? "Jev ausblenden" : "Jev anzeigen";
     }
 
     async function load() {
@@ -360,6 +505,22 @@
       render(state);
       if (state.toPlay === "computer" && !state.missingKey && !state.dealOver) await sendComputer();
     }
+
+    const deckChoice = document.getElementById("deck-choice");
+    deckChoice.value = selectedDeck();
+    deckChoice.addEventListener("change", () => {
+      const deck = deckChoice.value === "doppeldeutsch" ? "doppeldeutsch" : "franzoesisch";
+      localStorage.setItem("schnapsen-deck", deck);
+      if (latest) render(latest);
+    });
+    document.getElementById("jev-toggle").addEventListener("click", () => {
+      jevOpen = !jevOpen;
+      if (latest) fillJev(latest);
+      else {
+        document.getElementById("jev-boxes").hidden = !jevOpen;
+        document.getElementById("jev-toggle").textContent = jevOpen ? "Jev ausblenden" : "Jev anzeigen";
+      }
+    });
 
     load();
   </script>
