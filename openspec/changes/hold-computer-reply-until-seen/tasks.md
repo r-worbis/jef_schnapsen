@@ -1,0 +1,12 @@
+# Tasks
+
+## 1. Hold the computer's answer in the engine
+
+- [x] 1.1 When the computer is the follower, leave both cards in `current_trick`, set `phase` to `acknowledge` and `to_play` to `human`, and do not call `_resolve_trick`. When the human is the follower, keep awarding the trick immediately. Verify a new test in `tests/test_game.py`: after the computer answers, both cards are still in the trick, eyes and the talon are unchanged, and `to_play` is `human`; after the human follows a computer lead, the trick is awarded with no `seen`.
+- [x] 1.2 Add the action id `seen` (plan kind `seen`, German label `Gesehen`), legal only in `acknowledge`, and implement it by calling `_resolve_trick`. Verify tests that `seen` is refused when nothing is waiting; that confirming a lost computer answer with an open talon awards the trick to the human, counts both cards, draws the human first, and leaves the human to lead; that a winning answer which would reach 66 leaves the eyes unchanged until `seen`; and that a last-trick answer does not end the deal until `seen`, and then ends it under the last-trick rules.
+- [x] 1.3 Apply `seen` before the award assertions in `test_discard_loses_and_trump_captures_while_the_talon_is_open`, `test_winner_draws_first_and_a_closed_or_empty_talon_deals_nothing`, the computer follow in `test_trump_marriage_plain_marriage_and_no_eyes_without_a_trick` that expects `won_trick`, and the three terminal tricks in `test_declaration_thresholds_false_declaration_closer_failure_and_last_trick`. Add `seen` to `test_ids_parse_the_same_and_labels_are_german`. Verify `python -m unittest tests.test_game` passes.
+
+## 2. Show the answer on the table until it is confirmed
+
+- [x] 2.1 Cover the pause through the local server in `tests/test_table.py`: a human lead whose computer answer is scripted returns both cards face up, unchanged eyes, `yourTurn` true, `toPlay` `human`, and actions limited to `seen` labeled `Gesehen`. A second `GET /api/state` returns that same pair and button. `POST /api/computer` during the wait does not play another card. `POST /api/action` with `seen` then shows the awarded trick in the eyes. Verify that test passes.
+- [x] 2.2 Keep `schnapsen/page.html` from asking the computer to move unless `toPlay` is `computer`, and let the existing actions row show the `Gesehen` button. Change the page only if that is not already true. Verify in the browser: lead a card, see the computer's answer stay beside it with the eyes unchanged, click `Gesehen`, and only then see the trick collected and the eyes updated.

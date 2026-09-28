@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schnapsen</title>
+  <style>
+    :root {
+      --felt: #1c4a34;
+      --felt-deep: #143628;
+      --cream: #f3ead7;
+      --ink: #1c1915;
+      --red: #9c2436;
+      --gold: #e6c98a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #246044, var(--felt-deep) 55%);
+      color: var(--cream);
+      font: 16px/1.4 "Iowan Old Style", Palatino, Georgia, serif;
+    }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+    h1 {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin: 0 0 8px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 20px;
+    }
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+    section {
+      background: rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(230, 201, 138, 0.25);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    h2 {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; min-height: 108px; }
+    .card {
+      width: 74px;
+      height: 104px;
+      border-radius: 8px;
+      background: var(--cream);
+      color: var(--ink);
+      border: 0;
+      padding: 0;
+      overflow: hidden;
+      display: block;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+    }
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+    }
+    button.card { cursor: pointer; }
+    button.card:hover { transform: translateY(-3px); }
+    .stats { display: grid; gap: 8px; }
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(243, 234, 215, 0.15);
+      padding-bottom: 6px;
+    }
+    .banner {
+      background: #f3ead7;
+      color: var(--ink);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
+    .banner.alert { background: #f4d7c4; }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .actions button, .banner button {
+      background: var(--gold);
+      color: var(--ink);
+      border: 0;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: 600 14px/1.2 Georgia, serif;
+      cursor: pointer;
+    }
+    .muted { opacity: 0.8; }
+    #trick .card { outline: 2px solid var(--gold); }
+    #talon { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
+    #talon-count { flex: 1 0 100%; margin: 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Schnapsen</h1>
+    <p class="muted" id="turn-line">Wird gegeben…</p>
+    <div id="notice"></div>
+    <div id="result"></div>
+    <div class="layout">
+      <div>
+        <section>
+          <h2>Computer</h2>
+          <div id="computer-hand" class="row"></div>
+        </section>
+        <section>
+          <h2>Trumpf und Talon</h2>
+          <div class="row">
+            <div id="trump"></div>
+            <div id="talon"></div>
+          </div>
+        </section>
+        <section>
+          <h2>Stich</h2>
+          <div id="trick" class="row"></div>
+        </section>
+        <section>
+          <h2>Deine Karten</h2>
+          <div id="your-hand" class="row"></div>
+          <div id="actions" class="actions"></div>
+        </section>
+      </div>
+      <aside>
+        <section>
+          <h2>Augen</h2>
+          <div id="eyes" class="stats"></div>
+        </section>
+        <section>
+          <h2>Noch benötigte Punkte</h2>
+          <div id="points" class="stats"></div>
+        </section>
+        <section>
+          <h2>Bummerl</h2>
+          <div id="bummerl" class="stats"></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <script>
+    let busy = false;
+
+    function tokenFromLabel(label) {
+      return label.replace(" ", "-");
+    }
+
+    function cardImage(src, name) {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = name;
+      return img;
+    }
+
+    function cardFace(label, clickId) {
+      const el = clickId ? document.createElement("button") : document.createElement("div");
+      el.className = "card";
+      el.setAttribute("aria-label", label);
+      el.appendChild(cardImage("/static/cards/" + tokenFromLabel(label) + ".svg", label));
+      if (clickId) {
+        el.dataset.id = clickId;
+        el.addEventListener("click", () => sendAction(clickId));
+      }
+      return el;
+    }
+
+    function cardBack() {
+      const el = document.createElement("div");
+      el.className = "card back";
+      el.setAttribute("aria-label", "verdeckt");
+      el.appendChild(cardImage("/static/cards/back.svg", "verdeckt"));
+      return el;
+    }
+
+    function fillCards(node, labels, playable) {
+      node.replaceChildren();
+      labels.forEach((label) => {
+        const id = "play:" + label.replace(" ", "-");
+        const clickable = playable.has(id) ? id : null;
+        node.appendChild(cardFace(label, clickable));
+      });
+    }
+
+    function stat(node, rows) {
+      node.replaceChildren();
+      rows.forEach(([name, value]) => {
+        const row = document.createElement("div");
+        row.className = "stat";
+        row.innerHTML = "<span>" + name + "</span><strong>" + value + "</strong>";
+        node.appendChild(row);
+      });
+    }
+
+    function render(state) {
+      const dealer = state.dealer === "human" ? "Du gibst" : "Der Computer gibt";
+      const turn = state.dealOver
+        ? "Blatt beendet"
+        : state.toPlay === "human"
+          ? "Du bist am Zug"
+          : "Der Computer ist am Zug";
+      document.getElementById("turn-line").textContent = dealer + " · " + turn;
+
+      const notice = document.getElementById("notice");
+      notice.replaceChildren();
+      if (state.missingKey) {
+        const banner = document.createElement("div");
+        banner.className = "banner alert";
+        banner.id = "missing-key";
+        banner.textContent = "Der API-Schlüssel fehlt. Lege den Schlüssel in jef.api ab und wiederhole dann den Zug des Computers. ";
+        const retry = document.createElement("button");
+        retry.textContent = "Erneut versuchen";
+        retry.addEventListener("click", () => sendComputer());
+        banner.appendChild(retry);
+        notice.appendChild(banner);
+      }
+      if (state.choiceReplaced) {
+        const banner = document.createElement("div");
+        banner.className = "banner alert";
+        banner.id = "choice-replaced";
+        banner.textContent = "Jevs Wahl wurde durch eine legale Aktion ersetzt.";
+        notice.appendChild(banner);
+      }
+      const action = state.computerAction;
+      if (action && (action.card || action.exchange || action.closed || action.marriage || action.declared)) {
+        const bits = [];
+        if (action.exchange) bits.push("hat den Trumpf getauscht" + (action.took ? " gegen " + action.took : ""));
+        if (action.closed) bits.push("hat den Talon zugedreht");
+        if (action.marriage) bits.push("hat eine " + action.marriage + "-Hochzeit angesagt");
+        if (action.card) bits.push("hat " + action.card + " gespielt");
+        if (action.declared) bits.push("hat 66 angesagt");
+        const banner = document.createElement("div");
+        banner.className = "banner";
+        banner.id = "computer-action";
+        banner.textContent = "Der Computer " + bits.join(", ") + ".";
+        notice.appendChild(banner);
+      }
+
+      const result = document.getElementById("result");
+      result.replaceChildren();
+      if (state.dealOver) {
+        const banner = document.createElement("div");
+        banner.className = "banner";
+        banner.id = "deal-result";
+        const who = state.dealWinner === "human" ? "Du" : "Der Computer";
+        const points = state.gamePoints === 1 ? "Punkt" : "Punkte";
+        banner.textContent = who + " hat das Blatt für " + state.gamePoints + " " + points + " gewonnen. Augen: du " + state.eyes.human + ", Computer " + state.eyes.computer + ".";
+        if (state.canNextDeal) {
+          const next = document.createElement("button");
+          next.textContent = "Nächstes Blatt";
+          next.addEventListener("click", () => sendAction("next-deal"));
+          banner.appendChild(document.createTextNode(" "));
+          banner.appendChild(next);
+        }
+        result.appendChild(banner);
+      }
+      if (state.matchOver) {
+        const banner = document.createElement("div");
+        banner.className = "banner";
+        banner.id = "match-result";
+        banner.textContent = (state.matchWinner === "human" ? "Du" : "Der Computer") + " hat das Match gewonnen.";
+        result.appendChild(banner);
+      }
+
+      const playable = new Set((state.actions || []).filter((item) => item.id.startsWith("play:")).map((item) => item.id));
+      fillCards(document.getElementById("your-hand"), state.yourHand || [], state.yourTurn ? playable : new Set());
+
+      const backs = document.getElementById("computer-hand");
+      backs.replaceChildren();
+      for (let i = 0; i < (state.opponentCount || 0); i += 1) backs.appendChild(cardBack());
+
+      const trump = document.getElementById("trump");
+      trump.replaceChildren();
+      if (state.trump) trump.appendChild(cardFace(state.trump, null));
+      else {
+        const note = document.createElement("p");
+        note.textContent = state.closed ? "Talon zugedreht. Trumpf war " + state.trumpSuit + "." : "Trumpf " + state.trumpSuit + " wurde gezogen.";
+        trump.appendChild(note);
+      }
+      const talon = document.getElementById("talon");
+      talon.replaceChildren();
+      const talonNote = document.createElement("p");
+      talonNote.id = "talon-count";
+      talonNote.textContent = state.closed ? "Talon zugedreht" : "Talon: " + state.talonCount + " verdeckt";
+      talon.appendChild(talonNote);
+      if (!state.closed) {
+        for (let i = 0; i < (state.talonCount || 0); i += 1) talon.appendChild(cardBack());
+      }
+
+      const trick = document.getElementById("trick");
+      trick.replaceChildren();
+      (state.trick || []).forEach((item) => {
+        const wrap = document.createElement("div");
+        const caption = document.createElement("div");
+        caption.className = "muted";
+        caption.textContent = item.seat === "human" ? "Du" : "Computer";
+        wrap.appendChild(caption);
+        wrap.appendChild(cardFace(item.card, null));
+        trick.appendChild(wrap);
+      });
+
+      stat(document.getElementById("eyes"), [["Du", state.eyes.human], ["Computer", state.eyes.computer]]);
+      stat(document.getElementById("points"), [["Du", state.pointsNeeded.human], ["Computer", state.pointsNeeded.computer]]);
+      stat(document.getElementById("bummerl"), [["Du", state.bummerl.human], ["Computer", state.bummerl.computer]]);
+
+      const actions = document.getElementById("actions");
+      actions.replaceChildren();
+      if (state.yourTurn) {
+        (state.actions || []).forEach((item) => {
+          const button = document.createElement("button");
+          button.dataset.id = item.id;
+          button.textContent = item.label;
+          button.addEventListener("click", () => sendAction(item.id));
+          actions.appendChild(button);
+        });
+      }
+    }
+
+    async function load() {
+      const state = await fetch("/api/state").then((response) => response.json());
+      render(state);
+      if (state.toPlay === "computer" && !state.missingKey && !state.dealOver && !busy) {
+        await sendComputer();
+      }
+    }
+
+    async function sendAction(id) {
+      if (busy) return;
+      busy = true;
+      const response = await fetch("/api/action", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+      });
+      const state = await response.json();
+      busy = false;
+      render(state);
+      if (state.toPlay === "computer" && !state.missingKey && !state.dealOver) await sendComputer();
+    }
+
+    async function sendComputer() {
+      if (busy) return;
+      busy = true;
+      const state = await fetch("/api/computer", { method: "POST" }).then((response) => response.json());
+      busy = false;
+      render(state);
+      if (state.toPlay === "computer" && !state.missingKey && !state.dealOver) await sendComputer();
+    }
+
+    load();
+  </script>
+</body>
+</html>
