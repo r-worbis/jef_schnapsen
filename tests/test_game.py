@@ -183,6 +183,63 @@ class TrickTests(unittest.TestCase):
         self.assertEqual(legal_action_ids(match), ["play:Karo-Bube"])
         self.assertFalse(apply_action(match, "play:Herz-Ass"))
 
+    def test_farbzwang_and_stichzwang_when_the_talon_is_exhausted(self):
+        human = [card("Karo", "König")]
+        computer = [card("Herz", "Ass"), card("Pik", "Bube")]
+        match = scripted_deal(human, computer, None, [])
+        match.deal.trump_suit = "Herz"
+        apply_action(match, "play:Karo-König")
+        self.assertEqual(legal_action_ids(match), ["play:Herz-Ass"])
+        before = snapshot(match)
+        trick = list(match.deal.current_trick)
+        to_play = match.deal.to_play
+        self.assertFalse(apply_action(match, "play:Pik-Bube"))
+        self.assertEqual(snapshot(match), before)
+        self.assertEqual(match.deal.current_trick, trick)
+        self.assertEqual(match.deal.to_play, to_play)
+
+        computer = [card("Pik", "Ass"), card("Kreuz", "Bube")]
+        match = scripted_deal([card("Karo", "König")], computer, None, [])
+        match.deal.trump_suit = "Herz"
+        apply_action(match, "play:Karo-König")
+        self.assertEqual(legal_action_ids(match), ["play:Pik-Ass", "play:Kreuz-Bube"])
+
+        computer = [card("Herz", "Ass"), card("Herz", "Bube")]
+        match = scripted_deal([card("Herz", "König")], computer, None, [])
+        match.deal.trump_suit = "Herz"
+        apply_action(match, "play:Herz-König")
+        self.assertEqual(legal_action_ids(match), ["play:Herz-Ass"])
+        self.assertFalse(apply_action(match, "play:Herz-Bube"))
+
+        computer = [card("Herz", "Bube"), card("Karo", "Ass")]
+        match = scripted_deal([card("Herz", "Ass")], computer, None, [], closed=True)
+        match.deal.trump_suit = "Herz"
+        apply_action(match, "play:Herz-Ass")
+        self.assertEqual(legal_action_ids(match), ["play:Herz-Bube"])
+        self.assertFalse(apply_action(match, "play:Karo-Ass"))
+
+        human = [card("Karo", "Bube"), card("Herz", "Ass")]
+        computer = [card("Karo", "König")]
+        match = scripted_deal(human, computer, None, [], leader="computer")
+        match.deal.trump_suit = "Herz"
+        apply_action(match, "play:Karo-König")
+        before = snapshot(match)
+        trick = list(match.deal.current_trick)
+        to_play = match.deal.to_play
+        self.assertEqual(to_play, "human")
+        self.assertFalse(apply_action(match, "play:Herz-Ass"))
+        self.assertEqual(snapshot(match), before)
+        self.assertEqual(match.deal.current_trick, trick)
+        self.assertEqual(match.deal.to_play, to_play)
+
+        trump = card("Herz", "Bube")
+        human = [card("Karo", "Ass")]
+        computer = [card("Karo", "König"), card("Pik", "Ass")]
+        match = scripted_deal(human, computer, trump, [])
+        apply_action(match, "play:Karo-Ass")
+        self.assertIn("play:Pik-Ass", legal_action_ids(match))
+        self.assertIn("play:Karo-König", legal_action_ids(match))
+
 
 class AcknowledgeTests(unittest.TestCase):
     def test_computer_answer_stays_until_seen_human_follow_does_not(self):
@@ -218,6 +275,64 @@ class AcknowledgeTests(unittest.TestCase):
         self.assertEqual(follow.deal.tricks["computer"][-1], [card("Karo", "Ass"), card("Karo", "König")])
         self.assertNotEqual(follow.deal.phase, "acknowledge")
         self.assertFalse(apply_action(follow, "seen"))
+
+    def test_two_stubs_award_the_trick_without_a_seen_pause(self):
+        trump = card("Herz", "Bube")
+        talon = [card("Kreuz", "Ass"), card("Kreuz", "Zehner")]
+        match = scripted_deal(
+            [card("Karo", "Ass")],
+            [card("Pik", "Ass")],
+            trump,
+            talon,
+            leader="computer",
+        )
+        match.players = {"human": "random", "computer": "random"}
+        self.assertTrue(apply_action(match, "play:Pik-Ass"))
+        self.assertEqual(match.deal.phase, "play")
+        self.assertTrue(apply_action(match, "play:Karo-Ass"))
+        self.assertNotEqual(match.deal.phase, "acknowledge")
+        self.assertNotIn("seen", legal_action_ids(match))
+        self.assertEqual(match.deal.current_trick, [])
+        self.assertEqual(
+            match.deal.tricks["computer"][-1],
+            [card("Pik", "Ass"), card("Karo", "Ass")],
+        )
+
+    def test_exhausted_off_suit_is_refused_for_either_seat(self):
+        match = scripted_deal(
+            [card("Karo", "König")],
+            [card("Karo", "Bube"), card("Herz", "Ass")],
+            None,
+            [],
+        )
+        match.deal.trump_suit = "Herz"
+        apply_action(match, "play:Karo-König")
+        before = snapshot(match)
+        trick = list(match.deal.current_trick)
+        to_play = match.deal.to_play
+        self.assertEqual(to_play, "computer")
+        self.assertFalse(apply_action(match, "play:Herz-Ass"))
+        self.assertEqual(snapshot(match), before)
+        self.assertEqual(match.deal.current_trick, trick)
+        self.assertEqual(match.deal.to_play, to_play)
+
+        match = scripted_deal(
+            [card("Karo", "Bube"), card("Herz", "Ass")],
+            [card("Karo", "König")],
+            None,
+            [],
+            leader="computer",
+        )
+        match.deal.trump_suit = "Herz"
+        apply_action(match, "play:Karo-König")
+        before = snapshot(match)
+        trick = list(match.deal.current_trick)
+        to_play = match.deal.to_play
+        self.assertEqual(to_play, "human")
+        self.assertFalse(apply_action(match, "play:Herz-Ass"))
+        self.assertEqual(snapshot(match), before)
+        self.assertEqual(match.deal.current_trick, trick)
+        self.assertEqual(match.deal.to_play, to_play)
 
     def test_seen_awards_draws_and_waits_on_last_trick_and_sixty_six(self):
         idle = scripted_deal(

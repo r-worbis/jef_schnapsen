@@ -1,0 +1,389 @@
+{
+  "played_at": "2026-09-29T15:15:31+02:00",
+  "model": "gpt-6-sol",
+  "rounds_per_pairing": 10,
+  "players": {
+    "jev": {
+      "deals_won": 7,
+      "matches_won": 0,
+      "game_points": 16,
+      "eyes": 900,
+      "bummerl": 0,
+      "marriages": 10,
+      "exchanges": 6,
+      "closes": 0,
+      "replaced": 0
+    },
+    "random": {
+      "deals_won": 6,
+      "matches_won": 0,
+      "game_points": 8,
+      "eyes": 646,
+      "bummerl": 0,
+      "marriages": 0,
+      "exchanges": 0,
+      "closes": 0,
+      "replaced": 4
+    },
+    "llm": {
+      "deals_won": 17,
+      "matches_won": 0,
+      "game_points": 34,
+      "eyes": 1336,
+      "bummerl": 0,
+      "marriages": 12,
+      "exchanges": 6,
+      "closes": 8,
+      "replaced": 0
+    }
+  },
+  "pairings": [
+    {
+      "left": "jev",
+      "right": "random",
+      "rounds": [
+        {
+          "winner": "jev",
+          "eyes": {
+            "jev": 70,
+            "random": 29
+          },
+          "game_points": 2,
+          "moves": [
+            "Jev married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "random",
+          "eyes": {
+            "jev": 54,
+            "random": 78
+          },
+          "game_points": 1,
+          "moves": [
+            "Jev married in Karo (20)",
+            "Jev married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "jev",
+          "eyes": {
+            "jev": 76,
+            "random": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "Jev exchanged the trump jack for Kreuz Zehner"
+          ]
+        },
+        {
+          "winner": "jev",
+          "eyes": {
+            "jev": 74,
+            "random": 29
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "jev",
+          "eyes": {
+            "jev": 74,
+            "random": 26
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "jev",
+          "eyes": {
+            "jev": 73,
+            "random": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "Jev exchanged the trump jack for Karo Ass",
+            "Jev married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "random",
+          "eyes": {
+            "jev": 60,
+            "random": 68
+          },
+          "game_points": 1,
+          "moves": [
+            "Jev married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "jev",
+          "eyes": {
+            "jev": 81,
+            "random": 33
+          },
+          "game_points": 1,
+          "moves": [
+            "Jev married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "jev",
+          "eyes": {
+            "jev": 78,
+            "random": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "Jev married in Kreuz (40)"
+          ]
+        },
+        {
+          "winner": "random",
+          "eyes": {
+            "jev": 6,
+            "random": 68
+          },
+          "game_points": 2,
+          "moves": []
+        }
+      ]
+    },
+    {
+      "left": "jev",
+      "right": "llm",
+      "rounds": [
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 30,
+            "llm": 75
+          },
+          "game_points": 2,
+          "moves": [
+            "LLM married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 41,
+            "llm": 67
+          },
+          "game_points": 1,
+          "moves": [
+            "LLM exchanged the trump jack for Kreuz Dame"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 27,
+            "llm": 68
+          },
+          "game_points": 2,
+          "moves": [
+            "LLM married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 33,
+            "llm": 70
+          },
+          "game_points": 1,
+          "moves": [
+            "Jev exchanged the trump jack for Kreuz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 0,
+            "llm": 77
+          },
+          "game_points": 3,
+          "moves": [
+            "Jev married in Karo (20)",
+            "LLM closed the talon"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 13,
+            "llm": 70
+          },
+          "game_points": 2,
+          "moves": [
+            "Jev exchanged the trump jack for Herz Zehner",
+            "LLM closed the talon"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 0,
+            "llm": 67
+          },
+          "game_points": 3,
+          "moves": [
+            "LLM exchanged the trump jack for Kreuz Zehner",
+            "LLM married in Kreuz (40)"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 0,
+            "llm": 67
+          },
+          "game_points": 3,
+          "moves": [
+            "LLM exchanged the trump jack for Herz K\u00f6nig",
+            "LLM married in Herz (40)",
+            "LLM closed the talon"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 48,
+            "llm": 68
+          },
+          "game_points": 1,
+          "moves": [
+            "Jev exchanged the trump jack for Herz Ass",
+            "LLM married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "jev": 62,
+            "llm": 75
+          },
+          "game_points": 1,
+          "moves": [
+            "LLM married in Karo (20)",
+            "Jev married in Herz (20)"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "random",
+      "right": "llm",
+      "rounds": [
+        {
+          "winner": "llm",
+          "eyes": {
+            "random": 40,
+            "llm": 75
+          },
+          "game_points": 2,
+          "moves": [
+            "LLM exchanged the trump jack for Herz K\u00f6nig",
+            "LLM closed the talon",
+            "LLM married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "random": 0,
+            "llm": 69
+          },
+          "game_points": 3,
+          "moves": []
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "random": 14,
+            "llm": 69
+          },
+          "game_points": 2,
+          "moves": [
+            "LLM married in Karo (20)",
+            "LLM closed the talon"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "random": 14,
+            "llm": 71
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "random",
+          "eyes": {
+            "random": 66,
+            "llm": 33
+          },
+          "game_points": 1,
+          "moves": [
+            "LLM married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "random",
+          "eyes": {
+            "random": 58,
+            "llm": 62
+          },
+          "game_points": 1,
+          "moves": [
+            "LLM exchanged the trump jack for Kreuz Ass"
+          ]
+        },
+        {
+          "winner": "random",
+          "eyes": {
+            "random": 76,
+            "llm": 31
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "random": 20,
+            "llm": 76
+          },
+          "game_points": 2,
+          "moves": [
+            "LLM exchanged the trump jack for Karo Zehner",
+            "LLM closed the talon"
+          ]
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "random": 14,
+            "llm": 76
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "llm",
+          "eyes": {
+            "random": 13,
+            "llm": 70
+          },
+          "game_points": 2,
+          "moves": [
+            "LLM married in Herz (20)"
+          ]
+        }
+      ]
+    }
+  ]
+}

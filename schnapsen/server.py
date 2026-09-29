@@ -19,7 +19,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 from schnapsen.engine import Match, apply_action, new_match
-from schnapsen.player import computer_should_move, perform_computer_turn
+from schnapsen.turn import close_match_clients, take_ai_turn
 from schnapsen.view import human_view
 
 ROOT = Path(__file__).resolve().parent
@@ -33,14 +33,16 @@ class Table:
     def __init__(self, match: Match, client: object | None = None) -> None:
         self.match = match
         self.client = client
+        self.random_player = None
+        self.llm_player = None
         self.lock = threading.Lock()
 
 
 def submit_action(table: Table, action_id: str) -> tuple[bool, dict[str, object]]:
     with table.lock:
         applied = apply_action(table.match, action_id)
-        if applied and computer_should_move(table.match):
-            perform_computer_turn(table.match, table.client)
+        if applied:
+            take_ai_turn(table.match, table.client, table.random_player, table.llm_player)
         payload = human_view(table.match)
         payload["applied"] = applied
         return applied, payload
@@ -48,8 +50,22 @@ def submit_action(table: Table, action_id: str) -> tuple[bool, dict[str, object]
 
 def advance_computer(table: Table) -> dict[str, object]:
     with table.lock:
-        perform_computer_turn(table.match, table.client)
+        take_ai_turn(table.match, table.client, table.random_player, table.llm_player)
         return human_view(table.match)
+
+
+_KINDS = {"human": {"human", "jev", "random", "llm"}, "computer": {"jev", "random", "llm"}}
+
+
+def start_match(table: Table, human: object, computer: object) -> tuple[int, dict[str, object]]:
+    with table.lock:
+        if human not in _KINDS["human"] or computer not in _KINDS["computer"]:
+            return 400, human_view(table.match)
+        close_match_clients(table.match)
+        match = new_match()
+        match.players = {"human": human, "computer": computer}
+        table.match = match
+        return 200, human_view(match)
 
 
 def read_state(table: Table) -> dict[str, object]:
@@ -106,6 +122,11 @@ def make_server(table: Table, port: int = 0) -> ThreadingHTTPServer:
             if path == "/api/computer":
                 self._json(200, advance_computer(table))
                 return
+            if path == "/api/match":
+                human, computer = _player_pair(self)
+                status, payload = start_match(table, human, computer)
+                self._json(status, payload)
+                return
             if path == "/api/action":
                 action_id = _action_id(self)
                 applied, payload = submit_action(table, action_id)
@@ -129,15 +150,24 @@ def make_server(table: Table, port: int = 0) -> ThreadingHTTPServer:
     return server
 
 
-def _action_id(handler: BaseHTTPRequestHandler) -> str:
+def _body(handler: BaseHTTPRequestHandler) -> dict:
     length = int(handler.headers.get("Content-Length", "0") or "0")
     raw = handler.rfile.read(length) if length else b""
     try:
         data = json.loads(raw.decode("utf-8") or "{}")
     except json.JSONDecodeError:
-        return ""
-    action_id = data.get("id", "")
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _action_id(handler: BaseHTTPRequestHandler) -> str:
+    action_id = _body(handler).get("id", "")
     return action_id if isinstance(action_id, str) else ""
+
+
+def _player_pair(handler: BaseHTTPRequestHandler) -> tuple[object, object]:
+    data = _body(handler)
+    return data.get("human"), data.get("computer")
 
 
 def main() -> None:
@@ -148,3 +178,5 @@ def main() -> None:
         server.serve_forever()
     except KeyboardInterrupt:
         server.shutdown()
+    finally:
+        close_match_clients(table.match)

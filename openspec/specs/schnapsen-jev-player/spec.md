@@ -8,26 +8,41 @@ Choose the computer seat's action by asking Jev, giving it that seat's own cards
 
 ### Requirement: Ask Jev with the computer's cards and the rules
 
-On the computer seat's turn, the system SHALL send Jev the cards that seat currently holds, a statement of the weiches Schnapsen rules used by the game, and the public table state. The public table state SHALL include the trump card if it is still visible, the trump suit, the talon count, whether the talon is closed, the current trick, the computer seat's own won tricks, the human seat's first won trick, both seats' eyes, both seats' game points still needed, both seats' Bummerl counts, and whose turn it is. The question SHALL ask which of the legal actions the computer seat should take. The legal actions SHALL be the only answers Jev is asked to choose among.
+On the turn of a seat whose player is Jev, the system SHALL send Jev the cards that seat currently holds, a statement of the weiches Schnapsen rules used by the game, and the public table state. The public table state SHALL include the trump card if it is still visible, the trump suit, the talon count, whether the talon is closed, the current trick, every awarded trick of the deal with both cards and which seat won it, both seats' eyes, both seats' game points still needed, both seats' Bummerl counts, and whose turn it is. The question SHALL ask which of the legal actions that seat should take. The legal actions SHALL be the only answers Jev is asked to choose among. The seat MAY be the left seat or the right seat.
 
 #### Scenario: Decision includes the hand and the rules
 
-- **WHEN** it is the computer seat's turn to act
-- **THEN** the request to Jev contains each card in the computer seat's hand, the rules statement, and the list of legal actions
+- **WHEN** it is the left seat's turn to act and that seat's player is Jev
+- **THEN** the request to Jev contains each card in the left seat's hand, the rules statement, and the list of legal actions
+
+#### Scenario: Jev on the right receives that seat's cards
+
+- **WHEN** it is the right seat's turn to act and that seat's player is Jev
+- **THEN** the request contains each card in the right seat's hand and does not contain a card still held by the left seat
 
 #### Scenario: One choice is applied
 
 - **WHEN** Jev selects one of the legal actions
 - **THEN** the game applies that action and no other action for that turn
 
+#### Scenario: Awarded tricks are listed in full
+
+- **WHEN** both seats have won at least one trick and it is a Jev seat's turn
+- **THEN** the request names both cards of every awarded trick and which seat won each trick, including tricks the other seat won after its first trick
+
 ### Requirement: Keep hidden cards out of the request
 
-The request to Jev SHALL NOT include the human seat's current card faces or the order of the face-down talon. It SHALL NOT include the human seat's won tricks after that seat's first trick.
+The request to Jev SHALL NOT include the opposing seat's current card faces or the order of the face-down talon. The request SHALL include the faces of cards that have already been played in awarded tricks.
 
 #### Scenario: Human hand is omitted
 
-- **WHEN** the system builds the computer seat's decision request
-- **THEN** the request does not contain the identity of any card still held by the human seat
+- **WHEN** Jev is playing the left seat and the system builds that seat's decision request
+- **THEN** the request does not contain the identity of any card still held by the right seat
+
+#### Scenario: The left hand is omitted when Jev sits on the right
+
+- **WHEN** Jev is playing the right seat and the system builds that seat's decision request
+- **THEN** the request does not contain the identity of any card still held by the left seat
 
 #### Scenario: Talon order is omitted
 
@@ -55,45 +70,50 @@ If Jev's answer is not one of the legal actions, the system SHALL NOT apply it. 
 
 ### Requirement: Stop the computer turn when the API key is missing
 
-The system SHALL read the API key from the file `jef.api` at the repository root and SHALL NOT read it from the environment. Tests that need a key SHALL read that same file. When that file is missing, unreadable, or contains only whitespace, the system SHALL NOT send a decision request and SHALL NOT apply a computer action. The table SHALL show that the key is missing and SHALL name `jef.api` as the file that supplies it.
+The system SHALL read the API key from the file `jef.api` at the repository root and SHALL NOT read it from the environment. Tests that need a key SHALL read that same file. When it is a Jev seat's turn and that file is missing, unreadable, or contains only whitespace, the system SHALL NOT send a decision request and SHALL NOT apply an action for that seat. The table SHALL show that the key is missing and SHALL name `jef.api` as the file that supplies it. This stop SHALL NOT apply on a turn whose player is the stub.
 
 #### Scenario: Missing key
 
-- **WHEN** it becomes the computer seat's turn and `jef.api` is missing, unreadable, or contains only whitespace
-- **THEN** no decision request is sent, no computer card is played, and the table shows that the key is missing and names `jef.api`
+- **WHEN** it becomes a Jev seat's turn and `jef.api` is missing, unreadable, or contains only whitespace
+- **THEN** no decision request is sent, no card is played for that seat, and the table shows that the key is missing and names `jef.api`
 
 #### Scenario: Environment variable does not supply the key
 
-- **WHEN** it becomes the computer seat's turn, `TYPESAFE_API_KEY` is set, and `jef.api` is missing or contains only whitespace
-- **THEN** no decision request is sent, no computer card is played, and the table shows that the key is missing
+- **WHEN** it becomes a Jev seat's turn, `TYPESAFE_API_KEY` is set, and `jef.api` is missing or contains only whitespace
+- **THEN** no decision request is sent, no card is played for that seat, and the table shows that the key is missing
 
 #### Scenario: Key file authorizes the computer turn
 
-- **WHEN** it becomes the computer seat's turn and `jef.api` contains a key, even if `TYPESAFE_API_KEY` is unset
+- **WHEN** it becomes a Jev seat's turn and `jef.api` contains a key, even if `TYPESAFE_API_KEY` is unset
 - **THEN** a decision request is sent and the environment variable is not required
 
 #### Scenario: Tests use the key file
 
-- **WHEN** a test needs an API key for a computer turn
+- **WHEN** a test needs an API key for a Jev turn
 - **THEN** it uses the contents of `jef.api` and does not use `TYPESAFE_API_KEY` as a substitute
+
+#### Scenario: A stub turn ignores the missing key
+
+- **WHEN** it is the stub's turn and `jef.api` is missing
+- **THEN** the stub's turn is still taken and the table does not show that the key is missing
 
 ### Requirement: Do not ask Jev to end a deal at sixty-six
 
-The statement of rules sent to Jev SHALL say that a deal ends as soon as a seat has at least 66 counting eyes, with no declaration to choose. After a computer trick or marriage that reaches 66, the system SHALL NOT send a decision request whose legal actions include ending or continuing the deal.
+The statement of rules sent to Jev SHALL say that a deal ends as soon as a seat has at least 66 counting eyes, with no declaration to choose. After a trick or marriage of a seat played by Jev that reaches 66, the system SHALL NOT send a decision request whose legal actions include ending or continuing the deal. This SHALL hold whether Jev is playing the left seat or the right seat.
 
 #### Scenario: Rules describe automatic ending
 
-- **WHEN** it is the computer seat's turn to act
+- **WHEN** it is a Jev seat's turn to act
 - **THEN** the rules statement in the request says the deal ends at 66 without a declaration
 
 #### Scenario: No declare-or-continue turn
 
-- **WHEN** the computer seat has just been awarded a trick or a counting marriage that brings it to at least 66 eyes
+- **WHEN** a seat played by Jev has just been awarded a trick or a counting marriage that brings it to at least 66 eyes
 - **THEN** the deal is ended and no decision request is sent for that ending
 
 ### Requirement: Keep the last request and answers for the table
 
-When a computer turn sends a decision request, the system SHALL keep the rules statement from that request, the remainder of that request, and each answer Jev returned, in order. The remainder SHALL be the cards, public table, and legal actions that were sent with the rules. A second request on the same turn SHALL add its answer after the first and SHALL NOT replace the rules statement or the remainder, because both requests use the same text. A failed request SHALL be kept as a failure with no answer text. A later computer turn that sends a new request SHALL replace the kept exchange. A turn that sends no request SHALL leave the kept exchange unchanged. The kept exchange SHALL NOT include the API key. Keeping the exchange SHALL NOT change which action is applied.
+When a Jev turn sends a decision request, the system SHALL keep the rules statement from that request, the remainder of that request, and each answer Jev returned, in order. The remainder SHALL be the cards, public table, and legal actions that were sent with the rules. A second request on the same turn SHALL add its answer after the first and SHALL NOT replace the rules statement or the remainder, because both requests use the same text. A failed request SHALL be kept as a failure with no answer text. A later Jev turn that sends a new request SHALL replace the kept exchange, whichever seat Jev is playing. A turn that sends no request, including a turn played by the stub, SHALL leave the kept exchange unchanged. The kept exchange SHALL NOT include the API key. Keeping the exchange SHALL NOT change which action is applied.
 
 #### Scenario: A legal answer is kept with the request
 
@@ -112,8 +132,13 @@ When a computer turn sends a decision request, the system SHALL keep the rules s
 
 #### Scenario: A turn with no request leaves the exchange
 
-- **WHEN** a previous request is kept and the next computer turn sends no request
+- **WHEN** a previous request is kept and the next Jev turn sends no request
 - **THEN** the kept rules, remainder, and answers stay as they were
+
+#### Scenario: A stub turn leaves the exchange
+
+- **WHEN** a previous Jev request is kept and the next turn is played by the stub
+- **THEN** the kept rules, remainder, and answers stay as they were, and no new request is added
 
 #### Scenario: The key is not kept
 
@@ -133,3 +158,42 @@ The system SHALL NOT write the API key into any file in the repository. `jef.api
 
 - **WHEN** `jef.api` exists at the repository root
 - **THEN** `.gitignore` lists `jef.api`
+
+### Requirement: Reuse one decision client for a match
+
+A match that sends a decision request to Jev SHALL open one client for that match and SHALL use that same client for every decision request of that match. That includes the second request after an illegal answer, later deals of the same match, and a Jev seat on either side. The client SHALL stay open between those requests. When the next match starts, the system SHALL close the client of the match that is ending and SHALL open a different client for the new match on its first decision request. A match that sends no decision request SHALL open no client. A client supplied for the match SHALL be used for its decision requests and SHALL NOT be opened or closed by the system.
+
+#### Scenario: Two turns share the client
+
+- **WHEN** a match sends a decision request and a later turn of that same match sends another
+- **THEN** both requests use the client opened for that match, and that client is still open after the first request
+
+#### Scenario: The retry uses the same client
+
+- **WHEN** the first answer of a turn is not a legal action and Jev is asked again
+- **THEN** the second request uses the same client as the first request of that turn
+
+#### Scenario: The next deal keeps the client
+
+- **WHEN** a match sends a decision request, that deal ends, another deal of the same match starts, and that deal sends a decision request
+- **THEN** the later request uses the client opened for that match
+
+#### Scenario: Both seats share the client
+
+- **WHEN** both seats of a match are Jev and each seat sends a decision request
+- **THEN** both requests use the one client opened for that match
+
+#### Scenario: The next match opens a new client
+
+- **WHEN** a match has sent a decision request and the next match sends a decision request
+- **THEN** the first match's client is closed and the next match's request uses a different client
+
+#### Scenario: A match with no Jev seat opens no client
+
+- **WHEN** a match is played and neither seat is Jev
+- **THEN** no decision client is opened
+
+#### Scenario: A supplied client stays with its owner
+
+- **WHEN** a client is supplied for a match and that match sends a decision request
+- **THEN** the request uses the supplied client, and the system does not open or close a client for that match

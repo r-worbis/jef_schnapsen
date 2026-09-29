@@ -18,12 +18,15 @@ def human_view(match: Match) -> dict[str, object]:
     deal = match.deal
     if deal is None:
         return {"started": False}
-    your_turn = deal.phase != "ended" and deal.to_play == "human"
+    person = match.players.get("human") == "human"
+    your_turn = person and deal.phase != "ended" and deal.to_play == "human"
     actions = legal_action_ids(match) if your_turn else []
     return {
         "started": True,
         "dealer": match.dealer,
-        "yourHand": [card.label for card in deal.hands["human"]],
+        "players": dict(match.players),
+        "yourHand": [card.label for card in deal.hands["human"]] if person else [],
+        "yourCount": len(deal.hands["human"]),
         "opponentCount": len(deal.hands["computer"]),
         "trump": None if deal.trump_card is None else deal.trump_card.label,
         "trumpSuit": deal.trump_suit,
@@ -46,6 +49,7 @@ def human_view(match: Match) -> dict[str, object]:
         "matchWinner": match.match_winner,
         "canNextDeal": deal.phase == "ended" and match.match_winner is None,
         "missingKey": match.notice == "missing-key",
+        "missingChatKey": match.notice == "missing-chat-key",
         "choiceReplaced": match.choice_replaced,
         "jev": _jev_payload(match),
     }
@@ -55,7 +59,7 @@ def jev_parts(match: Match) -> tuple[str, str]:
     deal = match.deal
     if deal is None:
         return RULES, ""
-    seat: Seat = "computer"
+    seat: Seat = deal.to_play
     opponent = other(seat)
     remainder = [
         "Your cards: " + ", ".join(card.label for card in deal.hands[seat]),
@@ -65,7 +69,7 @@ def jev_parts(match: Match) -> tuple[str, str]:
         f"Talon closed: {'yes' if deal.closed else 'no'}",
         "Current trick: " + _trick_text(deal),
         "Your tricks: " + _tricks_text(deal.tricks[seat]),
-        "Opponent first trick: " + _tricks_text(deal.tricks[opponent][:1]),
+        "Opponent tricks: " + _tricks_text(deal.tricks[opponent]),
         f"Your eyes: {counting_eyes(deal, seat)}",
         f"Opponent eyes: {counting_eyes(deal, opponent)}",
         (

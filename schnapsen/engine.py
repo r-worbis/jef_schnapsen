@@ -95,6 +95,9 @@ class Match:
     notice: str | None = None
     choice_replaced: bool = False
     jev_exchange: JevExchange | None = None
+    players: dict[Seat, str] = field(
+        default_factory=lambda: {"human": "human", "computer": "jev"}
+    )
 
 
 @dataclass
@@ -467,7 +470,8 @@ def _play_card(match: Match, seat: Seat, card: Card, plan: Plan, took: str | Non
     if len(deal.current_trick) == 1:
         deal.to_play = other(seat)
         return
-    if seat == "computer":
+    leader = deal.current_trick[0][0]
+    if match.players.get("human") == "human" and leader == "human":
         deal.phase = "acknowledge"
         deal.to_play = "human"
         return

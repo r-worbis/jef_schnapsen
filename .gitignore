@@ -1,4 +1,5 @@
 jef.api
+chat.api
 .venv/
 __pycache__/
 *.py[cod]

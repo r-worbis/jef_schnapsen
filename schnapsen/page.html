@@ -176,6 +176,21 @@
     <div class="chrome">
       <h1>Schnapsen</h1>
       <p>
+        <label>Links
+          <select id="left-player">
+            <option value="jev" selected>Jev</option>
+            <option value="random">Zufall</option>
+            <option value="llm">LLM</option>
+          </select>
+        </label>
+        <label>Rechts
+          <select id="right-player">
+            <option value="human" selected>Mensch</option>
+            <option value="jev">Jev</option>
+            <option value="random">Zufall</option>
+            <option value="llm">LLM</option>
+          </select>
+        </label>
         <label>Karten
           <select id="deck-choice">
             <option value="franzoesisch">Französisch</option>
@@ -189,7 +204,7 @@
     <div id="result"></div>
     <div class="layout">
       <section>
-        <h2>Computer</h2>
+        <h2 id="left-heading">Computer</h2>
         <div id="computer-hand" class="row"></div>
       </section>
       <section class="center-table">
@@ -208,7 +223,7 @@
         </div>
       </section>
       <section>
-        <h2>Deine Karten</h2>
+        <h2 id="right-heading">Deine Karten</h2>
         <div id="your-hand" class="row"></div>
         <div id="actions" class="actions"></div>
       </section>
@@ -243,6 +258,7 @@
     let busy = false;
     let latest = null;
     let jevOpen = false;
+    let renderingPlayers = false;
 
     function selectedDeck() {
       return localStorage.getItem("schnapsen-deck") === "doppeldeutsch" ? "doppeldeutsch" : "franzoesisch";
@@ -329,18 +345,67 @@
       });
     }
 
+    function kindName(kind) {
+      if (kind === "jev") return "Jev";
+      if (kind === "random") return "Zufall";
+      if (kind === "llm") return "LLM";
+      return "Mensch";
+    }
+
+    function personPlays(state) {
+      return !state.players || state.players.human === "human";
+    }
+
+    function seatName(state, seat) {
+      if (personPlays(state)) return seat === "human" ? "Du" : "Der Computer";
+      return kindName((state.players || {})[seat]);
+    }
+
+    function scoreName(state, seat) {
+      if (personPlays(state)) return seat === "human" ? "Du" : "Computer";
+      return kindName((state.players || {})[seat]);
+    }
+
+    function aiShouldMove(state) {
+      const players = state.players || { human: "human", computer: "jev" };
+      const kind = players[state.toPlay];
+      const waiting = (state.actions || []).some((item) => item.id === "seen");
+      if (waiting || state.dealOver) return false;
+      if (kind !== "jev" && kind !== "random" && kind !== "llm") return false;
+      if (state.missingKey && kind === "jev") return false;
+      if (state.missingChatKey && kind === "llm") return false;
+      return true;
+    }
+
     function render(state) {
       latest = state;
-      const dealer = state.dealer === "human" ? "Du gibst" : "Der Computer gibt";
+      renderingPlayers = true;
+      if (state.players) {
+        document.getElementById("right-player").value = state.players.human;
+        document.getElementById("left-player").value = state.players.computer;
+      }
+      renderingPlayers = false;
+      const dealer = personPlays(state)
+        ? (state.dealer === "human" ? "Du gibst" : "Der Computer gibt")
+        : seatName(state, state.dealer) + " gibt";
       const turn = state.dealOver
         ? "Blatt beendet"
-        : state.toPlay === "human"
-          ? "Du bist am Zug"
-          : "Der Computer ist am Zug";
+        : personPlays(state)
+          ? (state.toPlay === "human" ? "Du bist am Zug" : "Der Computer ist am Zug")
+          : seatName(state, state.toPlay) + " ist am Zug";
       document.getElementById("turn-line").textContent = dealer + " · " + turn;
+      document.getElementById("left-heading").textContent = personPlays(state) ? "Computer" : kindName(state.players.computer);
+      document.getElementById("right-heading").textContent = personPlays(state) ? "Deine Karten" : kindName(state.players.human);
 
       const notice = document.getElementById("notice");
       notice.replaceChildren();
+      if (state.missingChatKey) {
+        const banner = document.createElement("div");
+        banner.className = "banner alert";
+        banner.id = "missing-chat-key";
+        banner.textContent = "Der API-Schlüssel fehlt. Lege den Schlüssel in chat.api ab und wiederhole dann den Zug. ";
+        notice.appendChild(banner);
+      }
       if (state.missingKey) {
         const banner = document.createElement("div");
         banner.className = "banner alert";
@@ -356,7 +421,7 @@
         const banner = document.createElement("div");
         banner.className = "banner alert";
         banner.id = "choice-replaced";
-        banner.textContent = "Jevs Wahl wurde durch eine legale Aktion ersetzt.";
+        banner.textContent = "Die Wahl wurde durch eine legale Aktion ersetzt.";
         notice.appendChild(banner);
       }
       const action = state.computerAction;
@@ -370,7 +435,7 @@
         const banner = document.createElement("div");
         banner.className = "banner";
         banner.id = "computer-action";
-        banner.textContent = visibleName("Der Computer " + bits.join(", ") + ".");
+        banner.textContent = visibleName(seatName(state, "computer") + " " + bits.join(", ") + ".");
         notice.appendChild(banner);
       }
 
@@ -380,9 +445,12 @@
         const banner = document.createElement("div");
         banner.className = "banner";
         banner.id = "deal-result";
-        const who = state.dealWinner === "human" ? "Du" : "Der Computer";
+        const who = seatName(state, state.dealWinner);
         const points = state.gamePoints === 1 ? "Punkt" : "Punkte";
-        banner.textContent = who + " hat das Blatt für " + state.gamePoints + " " + points + " gewonnen. Augen: du " + state.eyes.human + ", Computer " + state.eyes.computer + ".";
+        const eyes = personPlays(state)
+          ? "Augen: du " + state.eyes.human + ", Computer " + state.eyes.computer + "."
+          : "Augen: " + scoreName(state, "human") + " " + state.eyes.human + ", " + scoreName(state, "computer") + " " + state.eyes.computer + ".";
+        banner.textContent = who + " hat das Blatt für " + state.gamePoints + " " + points + " gewonnen. " + eyes;
         if (state.canNextDeal) {
           const next = document.createElement("button");
           next.textContent = "Nächstes Blatt";
@@ -396,12 +464,16 @@
         const banner = document.createElement("div");
         banner.className = "banner";
         banner.id = "match-result";
-        banner.textContent = (state.matchWinner === "human" ? "Du" : "Der Computer") + " hat das Match gewonnen.";
+        banner.textContent = seatName(state, state.matchWinner) + " hat das Match gewonnen.";
         result.appendChild(banner);
       }
 
       const playable = new Set((state.actions || []).filter((item) => item.id.startsWith("play:")).map((item) => item.id));
-      fillCards(document.getElementById("your-hand"), state.yourHand || [], state.yourTurn ? playable : new Set());
+      const yourHand = document.getElementById("your-hand");
+      fillCards(yourHand, state.yourHand || [], state.yourTurn ? playable : new Set());
+      if (!(state.yourHand || []).length) {
+        for (let i = 0; i < (state.yourCount || 0); i += 1) yourHand.appendChild(cardBack());
+      }
 
       const backs = document.getElementById("computer-hand");
       backs.replaceChildren();
@@ -435,15 +507,17 @@
         const wrap = document.createElement("div");
         const caption = document.createElement("div");
         caption.className = "muted";
-        caption.textContent = item.seat === "human" ? "Du" : "Computer";
+        caption.textContent = personPlays(state) ? (item.seat === "human" ? "Du" : "Computer") : kindName((state.players || {})[item.seat]);
         wrap.appendChild(caption);
         wrap.appendChild(cardFace(item.card, null));
         trick.appendChild(wrap);
       });
 
-      stat(document.getElementById("eyes"), [["Du", state.eyes.human], ["Computer", state.eyes.computer]]);
-      stat(document.getElementById("points"), [["Du", state.pointsNeeded.human], ["Computer", state.pointsNeeded.computer]]);
-      stat(document.getElementById("bummerl"), [["Du", state.bummerl.human], ["Computer", state.bummerl.computer]]);
+      const rightName = scoreName(state, "human");
+      const leftName = scoreName(state, "computer");
+      stat(document.getElementById("eyes"), [[rightName, state.eyes.human], [leftName, state.eyes.computer]]);
+      stat(document.getElementById("points"), [[rightName, state.pointsNeeded.human], [leftName, state.pointsNeeded.computer]]);
+      stat(document.getElementById("bummerl"), [[rightName, state.bummerl.human], [leftName, state.bummerl.computer]]);
       fillJev(state);
 
       const actions = document.getElementById("actions");
@@ -478,7 +552,7 @@
     async function load() {
       const state = await fetch("/api/state").then((response) => response.json());
       render(state);
-      if (state.toPlay === "computer" && !state.missingKey && !state.dealOver && !busy) {
+      if (aiShouldMove(state) && !busy) {
         await sendComputer();
       }
     }
@@ -494,7 +568,24 @@
       const state = await response.json();
       busy = false;
       render(state);
-      if (state.toPlay === "computer" && !state.missingKey && !state.dealOver) await sendComputer();
+      if (aiShouldMove(state)) await sendComputer();
+    }
+
+    async function sendMatch() {
+      if (busy) return;
+      busy = true;
+      const response = await fetch("/api/match", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          human: document.getElementById("right-player").value,
+          computer: document.getElementById("left-player").value
+        })
+      });
+      const state = await response.json();
+      busy = false;
+      render(state);
+      if (aiShouldMove(state)) await sendComputer();
     }
 
     async function sendComputer() {
@@ -503,7 +594,7 @@
       const state = await fetch("/api/computer", { method: "POST" }).then((response) => response.json());
       busy = false;
       render(state);
-      if (state.toPlay === "computer" && !state.missingKey && !state.dealOver) await sendComputer();
+      if (aiShouldMove(state)) await sendComputer();
     }
 
     const deckChoice = document.getElementById("deck-choice");
@@ -512,6 +603,12 @@
       const deck = deckChoice.value === "doppeldeutsch" ? "doppeldeutsch" : "franzoesisch";
       localStorage.setItem("schnapsen-deck", deck);
       if (latest) render(latest);
+    });
+    document.getElementById("left-player").addEventListener("change", () => {
+      if (!renderingPlayers) sendMatch();
+    });
+    document.getElementById("right-player").addEventListener("change", () => {
+      if (!renderingPlayers) sendMatch();
     });
     document.getElementById("jev-toggle").addEventListener("click", () => {
       jevOpen = !jevOpen;

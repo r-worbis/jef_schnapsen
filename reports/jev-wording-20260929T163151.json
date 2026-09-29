@@ -1,0 +1,1890 @@
+{
+  "played_at": "2026-09-29T16:31:51+02:00",
+  "rounds_per_pairing": 15,
+  "variants": [
+    {
+      "id": "which-reach",
+      "name": "Which reach",
+      "change": "which + reach",
+      "instructions": "Which legal action gives you the best chance to reach 66 eyes before the opponent?"
+    },
+    {
+      "id": "select-reach",
+      "name": "Select reach",
+      "change": "select + reach",
+      "instructions": "Select the legal action that gives you the best chance to reach 66 eyes before the opponent."
+    },
+    {
+      "id": "which-get",
+      "name": "Which get to",
+      "change": "which + get to",
+      "instructions": "Which legal action gives you the best chance to get to 66 eyes before the opponent?"
+    },
+    {
+      "id": "select-get",
+      "name": "Select get to",
+      "change": "select + get to",
+      "instructions": "Select the legal action that gives you the best chance to get to 66 eyes before the opponent."
+    },
+    {
+      "id": "select-count",
+      "name": "Select counting",
+      "change": "select + counting eyes",
+      "instructions": "Select the legal action that gives you the best chance to reach 66 counting eyes before the opponent."
+    }
+  ],
+  "players": {
+    "which-reach": {
+      "deals_won": 29,
+      "matches_won": 0,
+      "game_points": 51,
+      "eyes": 2878,
+      "bummerl": 0,
+      "marriages": 20,
+      "exchanges": 22,
+      "closes": 6,
+      "replaced": 0
+    },
+    "select-reach": {
+      "deals_won": 27,
+      "matches_won": 0,
+      "game_points": 56,
+      "eyes": 2736,
+      "bummerl": 0,
+      "marriages": 26,
+      "exchanges": 16,
+      "closes": 6,
+      "replaced": 0
+    },
+    "which-get": {
+      "deals_won": 32,
+      "matches_won": 0,
+      "game_points": 57,
+      "eyes": 2855,
+      "bummerl": 0,
+      "marriages": 29,
+      "exchanges": 21,
+      "closes": 4,
+      "replaced": 0
+    },
+    "select-get": {
+      "deals_won": 35,
+      "matches_won": 0,
+      "game_points": 75,
+      "eyes": 3285,
+      "bummerl": 0,
+      "marriages": 33,
+      "exchanges": 27,
+      "closes": 2,
+      "replaced": 0
+    },
+    "select-count": {
+      "deals_won": 27,
+      "matches_won": 0,
+      "game_points": 53,
+      "eyes": 2681,
+      "bummerl": 0,
+      "marriages": 27,
+      "exchanges": 20,
+      "closes": 3,
+      "replaced": 0
+    }
+  },
+  "pairings": [
+    {
+      "left": "which-reach",
+      "right": "select-reach",
+      "rounds": [
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 68,
+            "select-reach": 14
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "which-reach": 15,
+            "select-reach": 68
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 68,
+            "select-reach": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Karo Ass",
+            "WHICH-REACH Which reach married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "which-reach": 13,
+            "select-reach": 74
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 64,
+            "select-reach": 56
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Herz Dame"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "which-reach": 59,
+            "select-reach": 61
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Pik Ass"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "which-reach": 36,
+            "select-reach": 64
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach married in Pik (20)",
+            "WHICH-REACH Which reach exchanged the trump jack for Karo Ass",
+            "WHICH-REACH Which reach closed the talon"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 86,
+            "select-reach": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Pik Zehner",
+            "WHICH-REACH Which reach married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 68,
+            "select-reach": 21
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Kreuz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "which-reach": 15,
+            "select-reach": 68
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Kreuz Ass"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "which-reach": 34,
+            "select-reach": 68
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach married in Kreuz (20)",
+            "SELECT-REACH Select reach exchanged the trump jack for Pik K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 71,
+            "select-reach": 55
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-REACH Select reach married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 74,
+            "select-reach": 8
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach married in Herz (20)",
+            "SELECT-REACH Select reach exchanged the trump jack for Karo K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 76,
+            "select-reach": 33
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Herz K\u00f6nig",
+            "SELECT-REACH Select reach married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "which-reach": 62,
+            "select-reach": 58
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Karo Ass"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "which-reach",
+      "right": "which-get",
+      "rounds": [
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 35,
+            "which-get": 69
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach married in Kreuz (20)",
+            "WHICH-GET Which get to exchanged the trump jack for Karo K\u00f6nig",
+            "WHICH-GET Which get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 70,
+            "which-get": 7
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 78,
+            "which-get": 34
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach married in Karo (20)",
+            "WHICH-GET Which get to married in Herz (20)",
+            "WHICH-REACH Which reach exchanged the trump jack for Pik K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 42,
+            "which-get": 75
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 0,
+            "which-get": 82
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Karo Ass",
+            "WHICH-GET Which get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 8,
+            "which-get": 76
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Herz K\u00f6nig",
+            "WHICH-GET Which get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 15,
+            "which-get": 59
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach closed the talon"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 78,
+            "which-get": 33
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to married in Herz (20)",
+            "WHICH-REACH Which reach exchanged the trump jack for Kreuz Dame",
+            "WHICH-REACH Which reach married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 77,
+            "which-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Pik Zehner"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 34,
+            "which-get": 69
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Kreuz Zehner",
+            "WHICH-GET Which get to married in Herz (20)",
+            "WHICH-REACH Which reach married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 85,
+            "which-get": 33
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Kreuz K\u00f6nig",
+            "WHICH-GET Which get to married in Karo (20)",
+            "WHICH-REACH Which reach married in Pik (20)",
+            "WHICH-REACH Which reach married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 0,
+            "which-get": 75
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-GET Which get to married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 29,
+            "which-get": 57
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Herz Zehner",
+            "WHICH-REACH Which reach closed the talon"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 28,
+            "which-get": 70
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach married in Pik (20)",
+            "WHICH-GET Which get to married in Karo (20)",
+            "WHICH-GET Which get to exchanged the trump jack for Herz Ass"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-reach": 36,
+            "which-get": 64
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach closed the talon"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "which-reach",
+      "right": "select-get",
+      "rounds": [
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 64,
+            "select-get": 56
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Herz Ass"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-reach": 0,
+            "select-get": 69
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Herz Ass",
+            "SELECT-GET Select get to married in Herz (40)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-reach": 28,
+            "select-get": 75
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-GET Select get to married in Pik (20)",
+            "WHICH-REACH Which reach married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 67,
+            "select-get": 63
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Karo Dame",
+            "WHICH-REACH Which reach married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 67,
+            "select-get": 49
+          },
+          "game_points": 1,
+          "moves": []
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-reach": 44,
+            "select-get": 67
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Pik Zehner",
+            "SELECT-GET Select get to married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-reach": 15,
+            "select-get": 76
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Herz Zehner",
+            "SELECT-GET Select get to married in Karo (20)",
+            "SELECT-GET Select get to married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 69,
+            "select-get": 49
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 75,
+            "select-get": 27
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Pik Ass"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-reach": 0,
+            "select-get": 69
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-REACH Which reach married in Kreuz (20)",
+            "SELECT-GET Select get to married in Herz (40)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-reach": 48,
+            "select-get": 69
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to married in Karo (20)",
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz Ass"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 71,
+            "select-get": 34
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 73,
+            "select-get": 63
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach married in Karo (20)",
+            "SELECT-GET Select get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 71,
+            "select-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Pik K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-reach": 0,
+            "select-get": 70
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Pik Dame",
+            "SELECT-GET Select get to married in Pik (40)"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "which-reach",
+      "right": "select-count",
+      "rounds": [
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-reach": 36,
+            "select-count": 75
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Pik Ass",
+            "SELECT-COUNT Select counting married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 71,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Pik Zehner"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 68,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-COUNT Select counting married in Kreuz (20)",
+            "WHICH-REACH Which reach exchanged the trump jack for Pik Zehner",
+            "WHICH-REACH Which reach married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-reach": 6,
+            "select-count": 79
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Kreuz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 66,
+            "select-count": 54
+          },
+          "game_points": 1,
+          "moves": []
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-reach": 0,
+            "select-count": 66
+          },
+          "game_points": 3,
+          "moves": []
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-reach": 14,
+            "select-count": 76
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-COUNT Select counting married in Pik (20)",
+            "WHICH-REACH Which reach closed the talon"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-reach": 29,
+            "select-count": 70
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Kreuz Zehner",
+            "SELECT-COUNT Select counting married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-reach": 27,
+            "select-count": 68
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Kreuz Dame"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 75,
+            "select-count": 53
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Kreuz Zehner",
+            "SELECT-COUNT Select counting married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 80,
+            "select-count": 56
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 84,
+            "select-count": 6
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Karo Dame",
+            "WHICH-REACH Which reach married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 69,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Herz Dame"
+          ]
+        },
+        {
+          "winner": "which-reach",
+          "eyes": {
+            "which-reach": 76,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-REACH Which reach exchanged the trump jack for Kreuz K\u00f6nig",
+            "WHICH-REACH Which reach married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-reach": 61,
+            "select-count": 75
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-REACH Which reach married in Karo (20)",
+            "SELECT-COUNT Select counting exchanged the trump jack for Herz Ass",
+            "SELECT-COUNT Select counting married in Kreuz (20)"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "select-reach",
+      "right": "which-get",
+      "rounds": [
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 34,
+            "which-get": 68
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-REACH Select reach married in Kreuz (20)",
+            "WHICH-GET Which get to married in Karo (40)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 0,
+            "which-get": 78
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Kreuz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 15,
+            "which-get": 70
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-GET Which get to married in Kreuz (20)",
+            "WHICH-GET Which get to exchanged the trump jack for Karo Ass"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 50,
+            "which-get": 69
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Kreuz Zehner",
+            "WHICH-GET Which get to married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 74,
+            "which-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach closed the talon"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 62,
+            "which-get": 71
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-REACH Select reach married in Karo (20)",
+            "SELECT-REACH Select reach exchanged the trump jack for Pik Zehner",
+            "SELECT-REACH Select reach married in Herz (20)",
+            "WHICH-GET Which get to married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 68,
+            "which-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-GET Which get to married in Karo (20)",
+            "WHICH-GET Which get to exchanged the trump jack for Pik Dame"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 35,
+            "which-get": 50
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Herz Zehner",
+            "SELECT-REACH Select reach closed the talon"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 69,
+            "which-get": 7
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Herz Zehner",
+            "WHICH-GET Which get to closed the talon"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 74,
+            "which-get": 15
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach married in Herz (40)",
+            "WHICH-GET Which get to exchanged the trump jack for Herz Ass",
+            "SELECT-REACH Select reach married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 0,
+            "which-get": 84
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Karo Dame",
+            "WHICH-GET Which get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 78,
+            "which-get": 32
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach married in Karo (20)",
+            "WHICH-GET Which get to exchanged the trump jack for Herz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 60,
+            "which-get": 76
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 69,
+            "which-get": 21
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Karo K\u00f6nig",
+            "SELECT-REACH Select reach married in Karo (40)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "select-reach": 22,
+            "which-get": 62
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach closed the talon"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "select-reach",
+      "right": "select-get",
+      "rounds": [
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-reach": 27,
+            "select-get": 78
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Herz K\u00f6nig",
+            "SELECT-REACH Select reach married in Karo (20)",
+            "SELECT-GET Select get to married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 57,
+            "select-get": 63
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz Dame"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 71,
+            "select-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to married in Pik (40)",
+            "SELECT-REACH Select reach married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 71,
+            "select-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 76,
+            "select-get": 21
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Pik Dame",
+            "SELECT-REACH Select reach married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-reach": 0,
+            "select-get": 78
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Pik K\u00f6nig",
+            "SELECT-GET Select get to married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 71,
+            "select-get": 61
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz Zehner",
+            "SELECT-GET Select get to married in Herz (20)",
+            "SELECT-GET Select get to married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-reach": 0,
+            "select-get": 79
+          },
+          "game_points": 3,
+          "moves": []
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-reach": 62,
+            "select-get": 48
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach closed the talon"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 69,
+            "select-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Kreuz K\u00f6nig",
+            "SELECT-REACH Select reach married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-reach": 27,
+            "select-get": 68
+          },
+          "game_points": 2,
+          "moves": []
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-reach": 6,
+            "select-get": 66
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-reach": 62,
+            "select-get": 68
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to married in Karo (20)",
+            "SELECT-REACH Select reach married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 77,
+            "select-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach married in Herz (20)",
+            "SELECT-REACH Select reach married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-reach": 0,
+            "select-get": 75
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to married in Karo (20)",
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz K\u00f6nig",
+            "SELECT-GET Select get to married in Kreuz (40)"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "select-reach",
+      "right": "select-count",
+      "rounds": [
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-reach": 30,
+            "select-count": 49
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach closed the talon"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 71,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 69,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-reach": 0,
+            "select-count": 70
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Pik Dame",
+            "SELECT-COUNT Select counting married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 77,
+            "select-count": 7
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach married in Herz (20)",
+            "SELECT-COUNT Select counting exchanged the trump jack for Pik Dame"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-reach": 35,
+            "select-count": 78
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting married in Pik (20)",
+            "SELECT-REACH Select reach exchanged the trump jack for Karo Ass",
+            "SELECT-REACH Select reach married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 65,
+            "select-count": 55
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-REACH Select reach exchanged the trump jack for Herz Ass"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 70,
+            "select-count": 55
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting married in Kreuz (20)",
+            "SELECT-COUNT Select counting married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-reach": 0,
+            "select-count": 70
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-COUNT Select counting married in Pik (40)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-reach": 61,
+            "select-count": 74
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting married in Karo (20)",
+            "SELECT-REACH Select reach exchanged the trump jack for Kreuz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-reach": 37,
+            "select-count": 68
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Herz Zehner",
+            "SELECT-COUNT Select counting married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-reach": 0,
+            "select-count": 78
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-COUNT Select counting married in Kreuz (20)",
+            "SELECT-COUNT Select counting exchanged the trump jack for Herz K\u00f6nig",
+            "SELECT-COUNT Select counting closed the talon"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 76,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-REACH Select reach married in Kreuz (20)",
+            "SELECT-REACH Select reach married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-reach": 42,
+            "select-count": 68
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting married in Kreuz (20)",
+            "SELECT-COUNT Select counting exchanged the trump jack for Pik K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-reach",
+          "eyes": {
+            "select-reach": 69,
+            "select-count": 15
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-REACH Select reach married in Karo (20)"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "which-get",
+      "right": "select-get",
+      "rounds": [
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 0,
+            "select-get": 79
+          },
+          "game_points": 3,
+          "moves": []
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 40,
+            "select-get": 76
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to married in Kreuz (20)",
+            "SELECT-GET Select get to exchanged the trump jack for Karo Zehner"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 8,
+            "select-get": 70
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-GET Select get to married in Kreuz (20)",
+            "SELECT-GET Select get to married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 0,
+            "select-get": 79
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Herz Dame"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 37,
+            "select-get": 67
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to married in Karo (20)",
+            "SELECT-GET Select get to exchanged the trump jack for Pik Ass"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 76,
+            "select-get": 42
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz K\u00f6nig",
+            "SELECT-GET Select get to married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 15,
+            "select-get": 69
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-GET Select get to married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 42,
+            "select-get": 74
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz Ass",
+            "SELECT-GET Select get to married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 6,
+            "select-get": 79
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Karo Zehner"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 46,
+            "select-get": 74
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Herz Zehner",
+            "WHICH-GET Which get to married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 66,
+            "select-get": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-GET Which get to married in Herz (40)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "which-get": 22,
+            "select-get": 68
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Pik Zehner"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 79,
+            "select-get": 34
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Herz K\u00f6nig",
+            "WHICH-GET Which get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 33,
+            "select-get": 48
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Herz Dame",
+            "SELECT-GET Select get to closed the talon",
+            "WHICH-GET Which get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 67,
+            "select-get": 43
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Herz Zehner"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "which-get",
+      "right": "select-count",
+      "rounds": [
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 61,
+            "select-count": 59
+          },
+          "game_points": 1,
+          "moves": []
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 78,
+            "select-count": 21
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Karo Dame",
+            "WHICH-GET Which get to married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-get": 56,
+            "select-count": 64
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Karo Zehner"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-get": 56,
+            "select-count": 44
+          },
+          "game_points": 3,
+          "moves": [
+            "WHICH-GET Which get to closed the talon"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 68,
+            "select-count": 40
+          },
+          "game_points": 1,
+          "moves": []
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-get": 30,
+            "select-count": 75
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Pik Zehner"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-get": 63,
+            "select-count": 68
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Herz K\u00f6nig",
+            "SELECT-COUNT Select counting married in Kreuz (20)",
+            "WHICH-GET Which get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-get": 47,
+            "select-count": 76
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Kreuz K\u00f6nig",
+            "SELECT-COUNT Select counting married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 83,
+            "select-count": 35
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Karo Dame",
+            "WHICH-GET Which get to married in Herz (20)",
+            "SELECT-COUNT Select counting married in Kreuz (20)",
+            "WHICH-GET Which get to married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 77,
+            "select-count": 57
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Kreuz Dame",
+            "WHICH-GET Which get to married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-get": 0,
+            "select-count": 69
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-COUNT Select counting married in Herz (40)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "which-get": 7,
+            "select-count": 78
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Pik Dame",
+            "WHICH-GET Which get to closed the talon"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 40,
+            "select-count": 14
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-COUNT Select counting closed the talon"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 69,
+            "select-count": 50
+          },
+          "game_points": 1,
+          "moves": [
+            "WHICH-GET Which get to married in Herz (20)",
+            "SELECT-COUNT Select counting married in Kreuz (20)",
+            "WHICH-GET Which get to exchanged the trump jack for Karo Zehner"
+          ]
+        },
+        {
+          "winner": "which-get",
+          "eyes": {
+            "which-get": 77,
+            "select-count": 27
+          },
+          "game_points": 2,
+          "moves": [
+            "WHICH-GET Which get to exchanged the trump jack for Herz Ass",
+            "SELECT-COUNT Select counting married in Kreuz (20)"
+          ]
+        }
+      ]
+    },
+    {
+      "left": "select-get",
+      "right": "select-count",
+      "rounds": [
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-get": 14,
+            "select-count": 71
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Karo Dame",
+            "SELECT-COUNT Select counting married in Pik (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 57,
+            "select-count": 63
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Herz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 70,
+            "select-count": 28
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-COUNT Select counting married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 84,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-COUNT Select counting exchanged the trump jack for Kreuz K\u00f6nig",
+            "SELECT-GET Select get to married in Herz (20)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 81,
+            "select-count": 14
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-GET Select get to married in Karo (20)",
+            "SELECT-GET Select get to exchanged the trump jack for Herz Dame",
+            "SELECT-GET Select get to married in Herz (40)"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 76,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-COUNT Select counting married in Herz (20)",
+            "SELECT-GET Select get to exchanged the trump jack for Pik Ass",
+            "SELECT-GET Select get to married in Karo (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-get": 0,
+            "select-count": 79
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to married in Kreuz (20)",
+            "SELECT-COUNT Select counting exchanged the trump jack for Karo Zehner"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 77,
+            "select-count": 26
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Karo K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-get": 42,
+            "select-count": 66
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Kreuz K\u00f6nig"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 78,
+            "select-count": 54
+          },
+          "game_points": 1,
+          "moves": [
+            "SELECT-COUNT Select counting married in Karo (20)",
+            "SELECT-COUNT Select counting married in Kreuz (20)"
+          ]
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-get": 0,
+            "select-count": 72
+          },
+          "game_points": 3,
+          "moves": []
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 69,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": []
+        },
+        {
+          "winner": "select-count",
+          "eyes": {
+            "select-get": 55,
+            "select-count": 66
+          },
+          "game_points": 2,
+          "moves": [
+            "SELECT-GET Select get to married in Karo (20)",
+            "SELECT-COUNT Select counting exchanged the trump jack for Herz Dame",
+            "SELECT-GET Select get to closed the talon"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 68,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Herz Dame"
+          ]
+        },
+        {
+          "winner": "select-get",
+          "eyes": {
+            "select-get": 71,
+            "select-count": 0
+          },
+          "game_points": 3,
+          "moves": [
+            "SELECT-GET Select get to exchanged the trump jack for Herz Zehner"
+          ]
+        }
+      ]
+    }
+  ]
+}

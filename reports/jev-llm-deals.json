@@ -1,0 +1,2370 @@
+{
+  "deals": [
+    {
+      "index": 1,
+      "dealer": "computer",
+      "random_seed": 1,
+      "pack": [
+        "Pik-Dame",
+        "Pik-Zehner",
+        "Herz-Bube",
+        "Herz-Zehner",
+        "Karo-Zehner",
+        "Pik-Ass",
+        "Pik-K\u00f6nig",
+        "Kreuz-Dame",
+        "Kreuz-K\u00f6nig",
+        "Herz-Ass",
+        "Karo-Bube",
+        "Pik-Bube",
+        "Karo-Dame",
+        "Herz-Dame",
+        "Kreuz-Bube",
+        "Karo-K\u00f6nig",
+        "Karo-Ass",
+        "Kreuz-Ass",
+        "Herz-K\u00f6nig",
+        "Kreuz-Zehner"
+      ]
+    },
+    {
+      "index": 2,
+      "dealer": "human",
+      "random_seed": 2,
+      "pack": [
+        "Kreuz-Bube",
+        "Herz-Zehner",
+        "Herz-Bube",
+        "Karo-Bube",
+        "Kreuz-Zehner",
+        "Karo-K\u00f6nig",
+        "Karo-Dame",
+        "Herz-K\u00f6nig",
+        "Pik-Bube",
+        "Kreuz-Dame",
+        "Herz-Ass",
+        "Karo-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Pik-Ass",
+        "Kreuz-Ass",
+        "Pik-Zehner",
+        "Pik-Dame",
+        "Herz-Dame",
+        "Karo-Ass",
+        "Pik-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 3,
+      "dealer": "computer",
+      "random_seed": 3,
+      "pack": [
+        "Karo-Ass",
+        "Pik-Zehner",
+        "Karo-Zehner",
+        "Herz-Ass",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Kreuz-Bube",
+        "Pik-Ass",
+        "Herz-Zehner",
+        "Pik-Bube",
+        "Herz-Bube",
+        "Pik-K\u00f6nig",
+        "Karo-Dame",
+        "Herz-K\u00f6nig",
+        "Kreuz-Dame",
+        "Kreuz-Ass",
+        "Pik-Dame",
+        "Karo-K\u00f6nig",
+        "Karo-Bube",
+        "Herz-Dame"
+      ]
+    },
+    {
+      "index": 4,
+      "dealer": "human",
+      "random_seed": 4,
+      "pack": [
+        "Kreuz-Bube",
+        "Herz-Zehner",
+        "Karo-K\u00f6nig",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Karo-Ass",
+        "Pik-Ass",
+        "Herz-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Pik-Bube",
+        "Pik-K\u00f6nig",
+        "Karo-Zehner",
+        "Kreuz-Dame",
+        "Herz-Dame",
+        "Karo-Dame",
+        "Pik-Dame",
+        "Karo-Bube",
+        "Pik-Zehner",
+        "Herz-Ass",
+        "Herz-Bube"
+      ]
+    },
+    {
+      "index": 5,
+      "dealer": "human",
+      "random_seed": 5,
+      "pack": [
+        "Pik-Ass",
+        "Karo-Zehner",
+        "Herz-Zehner",
+        "Herz-K\u00f6nig",
+        "Kreuz-Bube",
+        "Kreuz-Zehner",
+        "Herz-Dame",
+        "Karo-Ass",
+        "Pik-Dame",
+        "Karo-Bube",
+        "Karo-K\u00f6nig",
+        "Karo-Dame",
+        "Kreuz-K\u00f6nig",
+        "Pik-K\u00f6nig",
+        "Pik-Zehner",
+        "Herz-Bube",
+        "Herz-Ass",
+        "Pik-Bube",
+        "Kreuz-Ass",
+        "Kreuz-Dame"
+      ]
+    },
+    {
+      "index": 6,
+      "dealer": "human",
+      "random_seed": 6,
+      "pack": [
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Bube",
+        "Herz-Zehner",
+        "Karo-Bube",
+        "Kreuz-Zehner",
+        "Karo-Zehner",
+        "Karo-K\u00f6nig",
+        "Karo-Ass",
+        "Pik-Ass",
+        "Karo-Dame",
+        "Pik-K\u00f6nig",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Kreuz-Dame",
+        "Herz-Dame",
+        "Pik-Zehner",
+        "Pik-Bube",
+        "Herz-Ass",
+        "Pik-Dame",
+        "Herz-Bube"
+      ]
+    },
+    {
+      "index": 7,
+      "dealer": "human",
+      "random_seed": 7,
+      "pack": [
+        "Pik-Ass",
+        "Karo-Dame",
+        "Kreuz-K\u00f6nig",
+        "Karo-Ass",
+        "Pik-K\u00f6nig",
+        "Pik-Dame",
+        "Karo-Zehner",
+        "Pik-Zehner",
+        "Karo-Bube",
+        "Kreuz-Ass",
+        "Herz-Zehner",
+        "Herz-K\u00f6nig",
+        "Karo-K\u00f6nig",
+        "Herz-Bube",
+        "Kreuz-Zehner",
+        "Herz-Dame",
+        "Kreuz-Dame",
+        "Kreuz-Bube",
+        "Herz-Ass",
+        "Pik-Bube"
+      ]
+    },
+    {
+      "index": 8,
+      "dealer": "human",
+      "random_seed": 8,
+      "pack": [
+        "Karo-Zehner",
+        "Pik-Zehner",
+        "Herz-Ass",
+        "Karo-Bube",
+        "Kreuz-Dame",
+        "Herz-Dame",
+        "Kreuz-K\u00f6nig",
+        "Pik-Bube",
+        "Karo-K\u00f6nig",
+        "Kreuz-Bube",
+        "Kreuz-Zehner",
+        "Pik-Ass",
+        "Karo-Dame",
+        "Herz-Bube",
+        "Kreuz-Ass",
+        "Pik-Dame",
+        "Herz-Zehner",
+        "Herz-K\u00f6nig",
+        "Pik-K\u00f6nig",
+        "Karo-Ass"
+      ]
+    },
+    {
+      "index": 9,
+      "dealer": "computer",
+      "random_seed": 9,
+      "pack": [
+        "Pik-K\u00f6nig",
+        "Karo-Zehner",
+        "Herz-Dame",
+        "Pik-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Herz-Bube",
+        "Pik-Dame",
+        "Karo-K\u00f6nig",
+        "Kreuz-Bube",
+        "Pik-Ass",
+        "Kreuz-Dame",
+        "Karo-Bube",
+        "Herz-Ass",
+        "Kreuz-Zehner",
+        "Karo-Ass",
+        "Karo-Dame",
+        "Pik-Bube",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Herz-Zehner"
+      ]
+    },
+    {
+      "index": 10,
+      "dealer": "human",
+      "random_seed": 10,
+      "pack": [
+        "Pik-Dame",
+        "Pik-Bube",
+        "Herz-Bube",
+        "Karo-Zehner",
+        "Herz-Ass",
+        "Karo-Dame",
+        "Kreuz-Ass",
+        "Pik-Zehner",
+        "Kreuz-Dame",
+        "Karo-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Pik-Ass",
+        "Karo-Ass",
+        "Pik-K\u00f6nig",
+        "Kreuz-K\u00f6nig",
+        "Herz-Dame",
+        "Herz-K\u00f6nig",
+        "Kreuz-Bube",
+        "Herz-Zehner",
+        "Karo-Bube"
+      ]
+    },
+    {
+      "index": 11,
+      "dealer": "human",
+      "random_seed": 11,
+      "pack": [
+        "Karo-Dame",
+        "Pik-Bube",
+        "Kreuz-Ass",
+        "Herz-K\u00f6nig",
+        "Pik-Zehner",
+        "Kreuz-Zehner",
+        "Kreuz-Bube",
+        "Herz-Ass",
+        "Kreuz-Dame",
+        "Herz-Zehner",
+        "Pik-Ass",
+        "Kreuz-K\u00f6nig",
+        "Herz-Bube",
+        "Pik-K\u00f6nig",
+        "Pik-Dame",
+        "Karo-Bube",
+        "Karo-K\u00f6nig",
+        "Herz-Dame",
+        "Karo-Ass",
+        "Karo-Zehner"
+      ]
+    },
+    {
+      "index": 12,
+      "dealer": "computer",
+      "random_seed": 12,
+      "pack": [
+        "Pik-Zehner",
+        "Karo-Dame",
+        "Kreuz-K\u00f6nig",
+        "Herz-Ass",
+        "Pik-Dame",
+        "Herz-Zehner",
+        "Kreuz-Ass",
+        "Herz-Dame",
+        "Karo-Ass",
+        "Kreuz-Bube",
+        "Kreuz-Dame",
+        "Karo-Zehner",
+        "Herz-K\u00f6nig",
+        "Pik-K\u00f6nig",
+        "Herz-Bube",
+        "Pik-Ass",
+        "Karo-Bube",
+        "Kreuz-Zehner",
+        "Pik-Bube",
+        "Karo-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 13,
+      "dealer": "human",
+      "random_seed": 13,
+      "pack": [
+        "Herz-Dame",
+        "Karo-K\u00f6nig",
+        "Pik-Ass",
+        "Kreuz-Zehner",
+        "Pik-K\u00f6nig",
+        "Pik-Zehner",
+        "Karo-Ass",
+        "Kreuz-Dame",
+        "Karo-Zehner",
+        "Kreuz-Bube",
+        "Karo-Dame",
+        "Karo-Bube",
+        "Kreuz-K\u00f6nig",
+        "Herz-Zehner",
+        "Kreuz-Ass",
+        "Herz-K\u00f6nig",
+        "Herz-Bube",
+        "Pik-Bube",
+        "Pik-Dame",
+        "Herz-Ass"
+      ]
+    },
+    {
+      "index": 14,
+      "dealer": "human",
+      "random_seed": 14,
+      "pack": [
+        "Herz-Zehner",
+        "Pik-Bube",
+        "Karo-Zehner",
+        "Kreuz-Zehner",
+        "Herz-Bube",
+        "Pik-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Karo-Ass",
+        "Pik-K\u00f6nig",
+        "Kreuz-Dame",
+        "Karo-Dame",
+        "Herz-Ass",
+        "Herz-Dame",
+        "Herz-K\u00f6nig",
+        "Karo-K\u00f6nig",
+        "Pik-Dame",
+        "Pik-Ass",
+        "Kreuz-Bube",
+        "Karo-Bube"
+      ]
+    },
+    {
+      "index": 15,
+      "dealer": "human",
+      "random_seed": 15,
+      "pack": [
+        "Pik-Zehner",
+        "Karo-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Karo-Bube",
+        "Herz-Zehner",
+        "Pik-K\u00f6nig",
+        "Herz-Bube",
+        "Herz-Dame",
+        "Kreuz-Dame",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Karo-Ass",
+        "Herz-Ass",
+        "Kreuz-K\u00f6nig",
+        "Pik-Ass",
+        "Pik-Dame",
+        "Karo-Zehner",
+        "Pik-Bube",
+        "Kreuz-Bube",
+        "Karo-Dame"
+      ]
+    },
+    {
+      "index": 16,
+      "dealer": "computer",
+      "random_seed": 16,
+      "pack": [
+        "Karo-Dame",
+        "Herz-K\u00f6nig",
+        "Herz-Bube",
+        "Karo-Ass",
+        "Pik-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Herz-Dame",
+        "Karo-K\u00f6nig",
+        "Pik-Dame",
+        "Herz-Zehner",
+        "Pik-Zehner",
+        "Pik-Ass",
+        "Kreuz-K\u00f6nig",
+        "Herz-Ass",
+        "Kreuz-Ass",
+        "Pik-Bube",
+        "Karo-Zehner",
+        "Karo-Bube",
+        "Kreuz-Dame",
+        "Kreuz-Bube"
+      ]
+    },
+    {
+      "index": 17,
+      "dealer": "human",
+      "random_seed": 17,
+      "pack": [
+        "Kreuz-Zehner",
+        "Herz-K\u00f6nig",
+        "Herz-Bube",
+        "Kreuz-Ass",
+        "Karo-Ass",
+        "Karo-Bube",
+        "Herz-Ass",
+        "Kreuz-Bube",
+        "Kreuz-K\u00f6nig",
+        "Herz-Zehner",
+        "Karo-Dame",
+        "Kreuz-Dame",
+        "Pik-K\u00f6nig",
+        "Pik-Zehner",
+        "Pik-Bube",
+        "Herz-Dame",
+        "Pik-Dame",
+        "Karo-Zehner",
+        "Karo-K\u00f6nig",
+        "Pik-Ass"
+      ]
+    },
+    {
+      "index": 18,
+      "dealer": "computer",
+      "random_seed": 18,
+      "pack": [
+        "Karo-Ass",
+        "Pik-Ass",
+        "Kreuz-Dame",
+        "Karo-Bube",
+        "Karo-Dame",
+        "Pik-K\u00f6nig",
+        "Karo-K\u00f6nig",
+        "Herz-Bube",
+        "Herz-Zehner",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Bube",
+        "Pik-Dame",
+        "Kreuz-Zehner",
+        "Pik-Bube",
+        "Herz-Ass",
+        "Karo-Zehner",
+        "Pik-Zehner",
+        "Herz-Dame"
+      ]
+    },
+    {
+      "index": 19,
+      "dealer": "human",
+      "random_seed": 19,
+      "pack": [
+        "Karo-Ass",
+        "Herz-Zehner",
+        "Pik-Bube",
+        "Pik-K\u00f6nig",
+        "Kreuz-Ass",
+        "Kreuz-K\u00f6nig",
+        "Karo-Dame",
+        "Herz-Dame",
+        "Karo-Zehner",
+        "Kreuz-Dame",
+        "Karo-K\u00f6nig",
+        "Karo-Bube",
+        "Kreuz-Bube",
+        "Herz-Ass",
+        "Pik-Zehner",
+        "Herz-K\u00f6nig",
+        "Pik-Dame",
+        "Herz-Bube",
+        "Pik-Ass",
+        "Kreuz-Zehner"
+      ]
+    },
+    {
+      "index": 20,
+      "dealer": "human",
+      "random_seed": 20,
+      "pack": [
+        "Herz-Bube",
+        "Karo-Zehner",
+        "Pik-Bube",
+        "Kreuz-Zehner",
+        "Karo-K\u00f6nig",
+        "Karo-Bube",
+        "Herz-Ass",
+        "Pik-Ass",
+        "Pik-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Karo-Ass",
+        "Herz-Zehner",
+        "Kreuz-Dame",
+        "Herz-Dame",
+        "Pik-Dame",
+        "Karo-Dame",
+        "Herz-K\u00f6nig",
+        "Pik-K\u00f6nig",
+        "Kreuz-Bube",
+        "Kreuz-Ass"
+      ]
+    },
+    {
+      "index": 21,
+      "dealer": "computer",
+      "random_seed": 21,
+      "pack": [
+        "Herz-Zehner",
+        "Karo-Ass",
+        "Herz-Ass",
+        "Pik-K\u00f6nig",
+        "Kreuz-Bube",
+        "Herz-Dame",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Pik-Zehner",
+        "Karo-Zehner",
+        "Kreuz-Dame",
+        "Karo-K\u00f6nig",
+        "Herz-Bube",
+        "Pik-Dame",
+        "Kreuz-Ass",
+        "Karo-Dame",
+        "Karo-Bube",
+        "Pik-Ass",
+        "Pik-Bube",
+        "Herz-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 22,
+      "dealer": "human",
+      "random_seed": 22,
+      "pack": [
+        "Kreuz-Dame",
+        "Pik-Ass",
+        "Kreuz-Bube",
+        "Pik-K\u00f6nig",
+        "Pik-Zehner",
+        "Karo-Zehner",
+        "Kreuz-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Pik-Dame",
+        "Herz-Zehner",
+        "Pik-Bube",
+        "Kreuz-Ass",
+        "Karo-K\u00f6nig",
+        "Karo-Ass",
+        "Herz-Dame",
+        "Herz-Ass",
+        "Herz-Bube",
+        "Herz-K\u00f6nig",
+        "Karo-Bube",
+        "Karo-Dame"
+      ]
+    },
+    {
+      "index": 23,
+      "dealer": "human",
+      "random_seed": 23,
+      "pack": [
+        "Kreuz-Bube",
+        "Karo-Bube",
+        "Kreuz-K\u00f6nig",
+        "Pik-K\u00f6nig",
+        "Karo-K\u00f6nig",
+        "Herz-Bube",
+        "Pik-Dame",
+        "Herz-Dame",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Karo-Ass",
+        "Pik-Zehner",
+        "Herz-Ass",
+        "Herz-Zehner",
+        "Kreuz-Zehner",
+        "Kreuz-Dame",
+        "Karo-Dame",
+        "Pik-Ass",
+        "Pik-Bube",
+        "Karo-Zehner"
+      ]
+    },
+    {
+      "index": 24,
+      "dealer": "computer",
+      "random_seed": 24,
+      "pack": [
+        "Kreuz-Bube",
+        "Karo-Bube",
+        "Karo-Dame",
+        "Karo-K\u00f6nig",
+        "Pik-Zehner",
+        "Pik-Bube",
+        "Herz-Bube",
+        "Pik-K\u00f6nig",
+        "Herz-Zehner",
+        "Karo-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Dame",
+        "Kreuz-Zehner",
+        "Herz-Ass",
+        "Pik-Dame",
+        "Kreuz-Ass",
+        "Pik-Ass",
+        "Herz-Dame",
+        "Karo-Ass",
+        "Herz-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 25,
+      "dealer": "human",
+      "random_seed": 25,
+      "pack": [
+        "Herz-Zehner",
+        "Herz-K\u00f6nig",
+        "Herz-Bube",
+        "Kreuz-Bube",
+        "Pik-Dame",
+        "Karo-Ass",
+        "Pik-Bube",
+        "Pik-K\u00f6nig",
+        "Kreuz-Ass",
+        "Kreuz-K\u00f6nig",
+        "Pik-Zehner",
+        "Karo-Dame",
+        "Kreuz-Zehner",
+        "Pik-Ass",
+        "Karo-Bube",
+        "Karo-Zehner",
+        "Kreuz-Dame",
+        "Herz-Ass",
+        "Herz-Dame",
+        "Karo-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 26,
+      "dealer": "human",
+      "random_seed": 26,
+      "pack": [
+        "Pik-Dame",
+        "Pik-Zehner",
+        "Karo-K\u00f6nig",
+        "Herz-Bube",
+        "Herz-Zehner",
+        "Kreuz-Bube",
+        "Kreuz-Dame",
+        "Herz-K\u00f6nig",
+        "Herz-Dame",
+        "Kreuz-Ass",
+        "Karo-Dame",
+        "Herz-Ass",
+        "Kreuz-K\u00f6nig",
+        "Karo-Ass",
+        "Karo-Zehner",
+        "Karo-Bube",
+        "Pik-Bube",
+        "Kreuz-Zehner",
+        "Pik-Ass",
+        "Pik-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 27,
+      "dealer": "human",
+      "random_seed": 27,
+      "pack": [
+        "Pik-Ass",
+        "Kreuz-K\u00f6nig",
+        "Herz-Bube",
+        "Herz-Zehner",
+        "Kreuz-Zehner",
+        "Herz-K\u00f6nig",
+        "Karo-Dame",
+        "Pik-K\u00f6nig",
+        "Karo-K\u00f6nig",
+        "Kreuz-Ass",
+        "Herz-Dame",
+        "Kreuz-Bube",
+        "Kreuz-Dame",
+        "Pik-Zehner",
+        "Karo-Ass",
+        "Pik-Dame",
+        "Karo-Bube",
+        "Herz-Ass",
+        "Karo-Zehner",
+        "Pik-Bube"
+      ]
+    },
+    {
+      "index": 28,
+      "dealer": "computer",
+      "random_seed": 28,
+      "pack": [
+        "Herz-Ass",
+        "Kreuz-Ass",
+        "Karo-Bube",
+        "Pik-Dame",
+        "Herz-Bube",
+        "Kreuz-K\u00f6nig",
+        "Pik-Ass",
+        "Herz-Dame",
+        "Pik-K\u00f6nig",
+        "Herz-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Pik-Bube",
+        "Kreuz-Bube",
+        "Karo-Zehner",
+        "Kreuz-Dame",
+        "Karo-K\u00f6nig",
+        "Pik-Zehner",
+        "Herz-Zehner",
+        "Karo-Ass",
+        "Karo-Dame"
+      ]
+    },
+    {
+      "index": 29,
+      "dealer": "human",
+      "random_seed": 29,
+      "pack": [
+        "Kreuz-Zehner",
+        "Pik-Dame",
+        "Karo-Bube",
+        "Karo-Ass",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Bube",
+        "Pik-Zehner",
+        "Pik-K\u00f6nig",
+        "Herz-Ass",
+        "Herz-K\u00f6nig",
+        "Kreuz-Dame",
+        "Pik-Ass",
+        "Herz-Zehner",
+        "Pik-Bube",
+        "Karo-Zehner",
+        "Herz-Dame",
+        "Herz-Bube",
+        "Karo-Dame",
+        "Kreuz-Ass",
+        "Karo-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 30,
+      "dealer": "computer",
+      "random_seed": 30,
+      "pack": [
+        "Pik-Bube",
+        "Kreuz-Zehner",
+        "Karo-Ass",
+        "Pik-Zehner",
+        "Pik-Dame",
+        "Herz-Dame",
+        "Herz-K\u00f6nig",
+        "Karo-Zehner",
+        "Pik-K\u00f6nig",
+        "Kreuz-Ass",
+        "Herz-Bube",
+        "Karo-Bube",
+        "Pik-Ass",
+        "Herz-Ass",
+        "Karo-K\u00f6nig",
+        "Karo-Dame",
+        "Kreuz-Dame",
+        "Kreuz-Bube",
+        "Kreuz-K\u00f6nig",
+        "Herz-Zehner"
+      ]
+    },
+    {
+      "index": 31,
+      "dealer": "human",
+      "random_seed": 31,
+      "pack": [
+        "Pik-Bube",
+        "Karo-Bube",
+        "Pik-Dame",
+        "Herz-Ass",
+        "Kreuz-Zehner",
+        "Pik-Zehner",
+        "Karo-Ass",
+        "Herz-Dame",
+        "Kreuz-Dame",
+        "Pik-K\u00f6nig",
+        "Pik-Ass",
+        "Karo-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Karo-K\u00f6nig",
+        "Herz-Zehner",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Herz-Bube",
+        "Kreuz-Bube",
+        "Karo-Dame"
+      ]
+    },
+    {
+      "index": 32,
+      "dealer": "human",
+      "random_seed": 32,
+      "pack": [
+        "Herz-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Herz-Zehner",
+        "Karo-Bube",
+        "Pik-Dame",
+        "Kreuz-K\u00f6nig",
+        "Herz-Dame",
+        "Pik-Zehner",
+        "Pik-Ass",
+        "Kreuz-Ass",
+        "Herz-Bube",
+        "Karo-Dame",
+        "Herz-Ass",
+        "Karo-K\u00f6nig",
+        "Kreuz-Dame",
+        "Kreuz-Bube",
+        "Karo-Ass",
+        "Pik-Bube",
+        "Karo-Zehner",
+        "Pik-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 33,
+      "dealer": "human",
+      "random_seed": 33,
+      "pack": [
+        "Karo-Zehner",
+        "Herz-Zehner",
+        "Pik-Zehner",
+        "Herz-Ass",
+        "Kreuz-Zehner",
+        "Kreuz-Ass",
+        "Kreuz-Bube",
+        "Pik-Ass",
+        "Herz-Bube",
+        "Herz-K\u00f6nig",
+        "Karo-Dame",
+        "Karo-Bube",
+        "Herz-Dame",
+        "Kreuz-K\u00f6nig",
+        "Pik-Bube",
+        "Karo-K\u00f6nig",
+        "Pik-Dame",
+        "Karo-Ass",
+        "Kreuz-Dame",
+        "Pik-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 34,
+      "dealer": "computer",
+      "random_seed": 34,
+      "pack": [
+        "Pik-Ass",
+        "Kreuz-Bube",
+        "Pik-Zehner",
+        "Herz-Dame",
+        "Herz-Ass",
+        "Karo-Dame",
+        "Karo-Zehner",
+        "Pik-Bube",
+        "Kreuz-K\u00f6nig",
+        "Karo-K\u00f6nig",
+        "Pik-K\u00f6nig",
+        "Herz-Bube",
+        "Pik-Dame",
+        "Herz-Zehner",
+        "Karo-Ass",
+        "Kreuz-Dame",
+        "Kreuz-Ass",
+        "Kreuz-Zehner",
+        "Karo-Bube",
+        "Herz-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 35,
+      "dealer": "computer",
+      "random_seed": 35,
+      "pack": [
+        "Karo-K\u00f6nig",
+        "Kreuz-Ass",
+        "Kreuz-Dame",
+        "Pik-Dame",
+        "Herz-Dame",
+        "Herz-Bube",
+        "Kreuz-Bube",
+        "Pik-Ass",
+        "Kreuz-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Karo-Zehner",
+        "Herz-Zehner",
+        "Pik-Zehner",
+        "Karo-Bube",
+        "Pik-K\u00f6nig",
+        "Karo-Dame",
+        "Pik-Bube",
+        "Herz-K\u00f6nig",
+        "Herz-Ass",
+        "Karo-Ass"
+      ]
+    },
+    {
+      "index": 36,
+      "dealer": "computer",
+      "random_seed": 36,
+      "pack": [
+        "Pik-Dame",
+        "Herz-Dame",
+        "Pik-Zehner",
+        "Herz-K\u00f6nig",
+        "Karo-Dame",
+        "Pik-K\u00f6nig",
+        "Karo-Bube",
+        "Kreuz-Ass",
+        "Pik-Ass",
+        "Pik-Bube",
+        "Karo-Zehner",
+        "Karo-K\u00f6nig",
+        "Kreuz-Bube",
+        "Kreuz-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Dame",
+        "Herz-Bube",
+        "Herz-Ass",
+        "Karo-Ass",
+        "Herz-Zehner"
+      ]
+    },
+    {
+      "index": 37,
+      "dealer": "human",
+      "random_seed": 37,
+      "pack": [
+        "Kreuz-Bube",
+        "Kreuz-Ass",
+        "Herz-Zehner",
+        "Pik-K\u00f6nig",
+        "Karo-Dame",
+        "Pik-Zehner",
+        "Pik-Ass",
+        "Karo-Bube",
+        "Herz-K\u00f6nig",
+        "Karo-Ass",
+        "Pik-Bube",
+        "Kreuz-Dame",
+        "Kreuz-Zehner",
+        "Pik-Dame",
+        "Karo-K\u00f6nig",
+        "Herz-Bube",
+        "Herz-Dame",
+        "Herz-Ass",
+        "Kreuz-K\u00f6nig",
+        "Karo-Zehner"
+      ]
+    },
+    {
+      "index": 38,
+      "dealer": "human",
+      "random_seed": 38,
+      "pack": [
+        "Kreuz-Bube",
+        "Herz-Ass",
+        "Karo-Zehner",
+        "Pik-Ass",
+        "Pik-Dame",
+        "Herz-Bube",
+        "Karo-K\u00f6nig",
+        "Karo-Ass",
+        "Kreuz-Ass",
+        "Kreuz-Dame",
+        "Kreuz-Zehner",
+        "Pik-Bube",
+        "Pik-Zehner",
+        "Karo-Bube",
+        "Pik-K\u00f6nig",
+        "Herz-K\u00f6nig",
+        "Karo-Dame",
+        "Herz-Dame",
+        "Herz-Zehner",
+        "Kreuz-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 39,
+      "dealer": "human",
+      "random_seed": 39,
+      "pack": [
+        "Herz-Dame",
+        "Karo-Dame",
+        "Kreuz-Dame",
+        "Herz-K\u00f6nig",
+        "Pik-Bube",
+        "Herz-Zehner",
+        "Kreuz-Bube",
+        "Karo-K\u00f6nig",
+        "Pik-Dame",
+        "Pik-Zehner",
+        "Pik-K\u00f6nig",
+        "Pik-Ass",
+        "Herz-Ass",
+        "Karo-Bube",
+        "Karo-Ass",
+        "Herz-Bube",
+        "Karo-Zehner",
+        "Kreuz-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Ass"
+      ]
+    },
+    {
+      "index": 40,
+      "dealer": "human",
+      "random_seed": 40,
+      "pack": [
+        "Kreuz-Zehner",
+        "Pik-Dame",
+        "Karo-Zehner",
+        "Karo-Bube",
+        "Herz-K\u00f6nig",
+        "Kreuz-Bube",
+        "Karo-K\u00f6nig",
+        "Karo-Dame",
+        "Kreuz-Ass",
+        "Herz-Zehner",
+        "Pik-K\u00f6nig",
+        "Pik-Bube",
+        "Herz-Ass",
+        "Kreuz-Dame",
+        "Herz-Bube",
+        "Pik-Ass",
+        "Herz-Dame",
+        "Karo-Ass",
+        "Pik-Zehner",
+        "Kreuz-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 41,
+      "dealer": "human",
+      "random_seed": 41,
+      "pack": [
+        "Pik-Dame",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Herz-Dame",
+        "Pik-Ass",
+        "Karo-Ass",
+        "Kreuz-Dame",
+        "Herz-Ass",
+        "Karo-Bube",
+        "Pik-Bube",
+        "Karo-Zehner",
+        "Pik-Zehner",
+        "Pik-K\u00f6nig",
+        "Herz-K\u00f6nig",
+        "Herz-Bube",
+        "Kreuz-Bube",
+        "Herz-Zehner",
+        "Kreuz-Zehner",
+        "Karo-Dame",
+        "Karo-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 42,
+      "dealer": "computer",
+      "random_seed": 42,
+      "pack": [
+        "Kreuz-K\u00f6nig",
+        "Herz-Bube",
+        "Kreuz-Dame",
+        "Pik-Ass",
+        "Kreuz-Zehner",
+        "Pik-Bube",
+        "Herz-Ass",
+        "Pik-K\u00f6nig",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Karo-Ass",
+        "Herz-Zehner",
+        "Herz-Dame",
+        "Kreuz-Bube",
+        "Pik-Zehner",
+        "Karo-Dame",
+        "Karo-Zehner",
+        "Pik-Dame",
+        "Karo-K\u00f6nig",
+        "Karo-Bube"
+      ]
+    },
+    {
+      "index": 43,
+      "dealer": "computer",
+      "random_seed": 43,
+      "pack": [
+        "Pik-K\u00f6nig",
+        "Karo-Dame",
+        "Pik-Ass",
+        "Herz-Zehner",
+        "Herz-Ass",
+        "Karo-Ass",
+        "Pik-Zehner",
+        "Pik-Dame",
+        "Pik-Bube",
+        "Herz-Dame",
+        "Kreuz-Zehner",
+        "Karo-Zehner",
+        "Herz-Bube",
+        "Kreuz-Bube",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Karo-K\u00f6nig",
+        "Kreuz-K\u00f6nig",
+        "Karo-Bube",
+        "Kreuz-Dame"
+      ]
+    },
+    {
+      "index": 44,
+      "dealer": "computer",
+      "random_seed": 44,
+      "pack": [
+        "Kreuz-Dame",
+        "Pik-K\u00f6nig",
+        "Pik-Zehner",
+        "Kreuz-Zehner",
+        "Karo-Zehner",
+        "Karo-Dame",
+        "Herz-Dame",
+        "Karo-K\u00f6nig",
+        "Kreuz-Bube",
+        "Pik-Ass",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Herz-Zehner",
+        "Karo-Bube",
+        "Pik-Bube",
+        "Herz-Bube",
+        "Herz-Ass",
+        "Karo-Ass",
+        "Kreuz-K\u00f6nig",
+        "Pik-Dame"
+      ]
+    },
+    {
+      "index": 45,
+      "dealer": "human",
+      "random_seed": 45,
+      "pack": [
+        "Pik-Zehner",
+        "Karo-Dame",
+        "Herz-Bube",
+        "Karo-K\u00f6nig",
+        "Pik-K\u00f6nig",
+        "Karo-Ass",
+        "Pik-Ass",
+        "Kreuz-Dame",
+        "Karo-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Karo-Bube",
+        "Herz-K\u00f6nig",
+        "Pik-Bube",
+        "Herz-Ass",
+        "Herz-Zehner",
+        "Herz-Dame",
+        "Kreuz-Bube",
+        "Kreuz-Zehner",
+        "Kreuz-Ass",
+        "Pik-Dame"
+      ]
+    },
+    {
+      "index": 46,
+      "dealer": "computer",
+      "random_seed": 46,
+      "pack": [
+        "Herz-Bube",
+        "Karo-Ass",
+        "Pik-Dame",
+        "Herz-Zehner",
+        "Kreuz-Bube",
+        "Kreuz-Zehner",
+        "Karo-Bube",
+        "Herz-K\u00f6nig",
+        "Kreuz-Dame",
+        "Karo-K\u00f6nig",
+        "Kreuz-Ass",
+        "Herz-Ass",
+        "Pik-Zehner",
+        "Kreuz-K\u00f6nig",
+        "Pik-Ass",
+        "Karo-Zehner",
+        "Karo-Dame",
+        "Pik-Bube",
+        "Pik-K\u00f6nig",
+        "Herz-Dame"
+      ]
+    },
+    {
+      "index": 47,
+      "dealer": "human",
+      "random_seed": 47,
+      "pack": [
+        "Herz-Zehner",
+        "Karo-K\u00f6nig",
+        "Herz-K\u00f6nig",
+        "Herz-Bube",
+        "Kreuz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Pik-K\u00f6nig",
+        "Kreuz-Zehner",
+        "Herz-Dame",
+        "Karo-Dame",
+        "Karo-Ass",
+        "Pik-Dame",
+        "Kreuz-Bube",
+        "Kreuz-Dame",
+        "Karo-Bube",
+        "Pik-Zehner",
+        "Karo-Zehner",
+        "Pik-Ass",
+        "Herz-Ass",
+        "Pik-Bube"
+      ]
+    },
+    {
+      "index": 48,
+      "dealer": "human",
+      "random_seed": 48,
+      "pack": [
+        "Pik-Zehner",
+        "Pik-Ass",
+        "Karo-K\u00f6nig",
+        "Karo-Ass",
+        "Pik-K\u00f6nig",
+        "Herz-Dame",
+        "Herz-K\u00f6nig",
+        "Pik-Bube",
+        "Pik-Dame",
+        "Herz-Bube",
+        "Kreuz-K\u00f6nig",
+        "Karo-Zehner",
+        "Kreuz-Dame",
+        "Karo-Dame",
+        "Kreuz-Bube",
+        "Karo-Bube",
+        "Herz-Zehner",
+        "Kreuz-Zehner",
+        "Kreuz-Ass",
+        "Herz-Ass"
+      ]
+    },
+    {
+      "index": 49,
+      "dealer": "computer",
+      "random_seed": 49,
+      "pack": [
+        "Karo-K\u00f6nig",
+        "Herz-Dame",
+        "Pik-Zehner",
+        "Kreuz-Bube",
+        "Karo-Bube",
+        "Kreuz-Dame",
+        "Karo-Dame",
+        "Karo-Zehner",
+        "Pik-Bube",
+        "Pik-Dame",
+        "Karo-Ass",
+        "Herz-Ass",
+        "Herz-Bube",
+        "Herz-K\u00f6nig",
+        "Kreuz-Ass",
+        "Herz-Zehner",
+        "Pik-Ass",
+        "Kreuz-Zehner",
+        "Pik-K\u00f6nig",
+        "Kreuz-K\u00f6nig"
+      ]
+    },
+    {
+      "index": 50,
+      "dealer": "human",
+      "random_seed": 50,
+      "pack": [
+        "Pik-Ass",
+        "Herz-Bube",
+        "Kreuz-Ass",
+        "Pik-Bube",
+        "Pik-Dame",
+        "Karo-Dame",
+        "Karo-Zehner",
+        "Kreuz-Bube",
+        "Kreuz-Zehner",
+        "Kreuz-Dame",
+        "Karo-Ass",
+        "Pik-Zehner",
+        "Karo-Bube",
+        "Herz-K\u00f6nig",
+        "Herz-Zehner",
+        "Herz-Ass",
+        "Kreuz-K\u00f6nig",
+        "Pik-K\u00f6nig",
+        "Karo-K\u00f6nig",
+        "Herz-Dame"
+      ]
+    }
+  ],
+  "seats": {
+    "computer": "jev",
+    "human": "llm"
+  },
+  "runs": {
+    "new": {
+      "instruction": "Select the legal action that gives you the best chance to get to 66 eyes before the opponent.",
+      "deals": [
+        {
+          "index": 1,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 15,
+            "llm": 68
+          }
+        },
+        {
+          "index": 2,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 83
+          }
+        },
+        {
+          "index": 3,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 60,
+            "llm": 60
+          }
+        },
+        {
+          "index": 4,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 78
+          }
+        },
+        {
+          "index": 5,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 46,
+            "llm": 74
+          }
+        },
+        {
+          "index": 6,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 15,
+            "llm": 69
+          }
+        },
+        {
+          "index": 7,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 68,
+            "llm": 41
+          }
+        },
+        {
+          "index": 8,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 69
+          }
+        },
+        {
+          "index": 9,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 55,
+            "llm": 67
+          }
+        },
+        {
+          "index": 10,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 34,
+            "llm": 70
+          }
+        },
+        {
+          "index": 11,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 2,
+          "eyes": {
+            "jev": 69,
+            "llm": 14
+          }
+        },
+        {
+          "index": 12,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 74,
+            "llm": 34
+          }
+        },
+        {
+          "index": 13,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 54,
+            "llm": 66
+          }
+        },
+        {
+          "index": 14,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 35,
+            "llm": 68
+          }
+        },
+        {
+          "index": 15,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 56,
+            "llm": 77
+          }
+        },
+        {
+          "index": 16,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 14,
+            "llm": 74
+          }
+        },
+        {
+          "index": 17,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 33,
+            "llm": 78
+          }
+        },
+        {
+          "index": 18,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 80,
+            "llm": 50
+          }
+        },
+        {
+          "index": 19,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 77,
+            "llm": 64
+          }
+        },
+        {
+          "index": 20,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 33,
+            "llm": 76
+          }
+        },
+        {
+          "index": 21,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 2,
+          "eyes": {
+            "jev": 76,
+            "llm": 13
+          }
+        },
+        {
+          "index": 22,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 67,
+            "llm": 0
+          }
+        },
+        {
+          "index": 23,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 40,
+            "llm": 74
+          }
+        },
+        {
+          "index": 24,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 18,
+            "llm": 97
+          }
+        },
+        {
+          "index": 25,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 49,
+            "llm": 69
+          }
+        },
+        {
+          "index": 26,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 79
+          }
+        },
+        {
+          "index": 27,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 34,
+            "llm": 68
+          }
+        },
+        {
+          "index": 28,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 72,
+            "llm": 33
+          }
+        },
+        {
+          "index": 29,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 75,
+            "llm": 0
+          }
+        },
+        {
+          "index": 30,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 49,
+            "llm": 53
+          }
+        },
+        {
+          "index": 31,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 63,
+            "llm": 68
+          }
+        },
+        {
+          "index": 32,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 27,
+            "llm": 67
+          }
+        },
+        {
+          "index": 33,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 83
+          }
+        },
+        {
+          "index": 34,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 73,
+            "llm": 62
+          }
+        },
+        {
+          "index": 35,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 8,
+            "llm": 67
+          }
+        },
+        {
+          "index": 36,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 68,
+            "llm": 0
+          }
+        },
+        {
+          "index": 37,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 74
+          }
+        },
+        {
+          "index": 38,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 69,
+            "llm": 0
+          }
+        },
+        {
+          "index": 39,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 2,
+          "eyes": {
+            "jev": 76,
+            "llm": 12
+          }
+        },
+        {
+          "index": 40,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 81,
+            "llm": 0
+          }
+        },
+        {
+          "index": 41,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 40,
+            "llm": 61
+          }
+        },
+        {
+          "index": 42,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 6,
+            "llm": 78
+          }
+        },
+        {
+          "index": 43,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 77
+          }
+        },
+        {
+          "index": 44,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 27,
+            "llm": 70
+          }
+        },
+        {
+          "index": 45,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 12,
+            "llm": 71
+          }
+        },
+        {
+          "index": 46,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 6,
+            "llm": 69
+          }
+        },
+        {
+          "index": 47,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 71,
+            "llm": 0
+          }
+        },
+        {
+          "index": 48,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 62,
+            "llm": 74
+          }
+        },
+        {
+          "index": 49,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 19,
+            "llm": 71
+          }
+        },
+        {
+          "index": 50,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 13,
+            "llm": 67
+          }
+        }
+      ]
+    },
+    "old": {
+      "instruction": "Which legal action gives you the best chance to reach 66 eyes before the opponent?",
+      "deals": [
+        {
+          "index": 1,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 14,
+            "llm": 68
+          }
+        },
+        {
+          "index": 2,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 69
+          }
+        },
+        {
+          "index": 3,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 60,
+            "llm": 60
+          }
+        },
+        {
+          "index": 4,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 89
+          }
+        },
+        {
+          "index": 5,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 47,
+            "llm": 77
+          }
+        },
+        {
+          "index": 6,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 15,
+            "llm": 69
+          }
+        },
+        {
+          "index": 7,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 48,
+            "llm": 49
+          }
+        },
+        {
+          "index": 8,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 68
+          }
+        },
+        {
+          "index": 9,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 54,
+            "llm": 70
+          }
+        },
+        {
+          "index": 10,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 34,
+            "llm": 77
+          }
+        },
+        {
+          "index": 11,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 2,
+          "eyes": {
+            "jev": 75,
+            "llm": 14
+          }
+        },
+        {
+          "index": 12,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 75,
+            "llm": 34
+          }
+        },
+        {
+          "index": 13,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 55,
+            "llm": 69
+          }
+        },
+        {
+          "index": 14,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 54,
+            "llm": 66
+          }
+        },
+        {
+          "index": 15,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 55,
+            "llm": 69
+          }
+        },
+        {
+          "index": 16,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 13,
+            "llm": 75
+          }
+        },
+        {
+          "index": 17,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 33,
+            "llm": 78
+          }
+        },
+        {
+          "index": 18,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 66,
+            "llm": 54
+          }
+        },
+        {
+          "index": 19,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 77,
+            "llm": 64
+          }
+        },
+        {
+          "index": 20,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 33,
+            "llm": 75
+          }
+        },
+        {
+          "index": 21,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 2,
+          "eyes": {
+            "jev": 76,
+            "llm": 13
+          }
+        },
+        {
+          "index": 22,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 67,
+            "llm": 0
+          }
+        },
+        {
+          "index": 23,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 40,
+            "llm": 73
+          }
+        },
+        {
+          "index": 24,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 6,
+            "llm": 78
+          }
+        },
+        {
+          "index": 25,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 76
+          }
+        },
+        {
+          "index": 26,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 78
+          }
+        },
+        {
+          "index": 27,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 34,
+            "llm": 69
+          }
+        },
+        {
+          "index": 28,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 67,
+            "llm": 34
+          }
+        },
+        {
+          "index": 29,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 74,
+            "llm": 0
+          }
+        },
+        {
+          "index": 30,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 49,
+            "llm": 53
+          }
+        },
+        {
+          "index": 31,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 63,
+            "llm": 68
+          }
+        },
+        {
+          "index": 32,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 27,
+            "llm": 76
+          }
+        },
+        {
+          "index": 33,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 69
+          }
+        },
+        {
+          "index": 34,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 28,
+            "llm": 52
+          }
+        },
+        {
+          "index": 35,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 69
+          }
+        },
+        {
+          "index": 36,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 71,
+            "llm": 49
+          }
+        },
+        {
+          "index": 37,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 70
+          }
+        },
+        {
+          "index": 38,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 40,
+            "llm": 68
+          }
+        },
+        {
+          "index": 39,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 2,
+          "eyes": {
+            "jev": 76,
+            "llm": 12
+          }
+        },
+        {
+          "index": 40,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 55,
+            "llm": 67
+          }
+        },
+        {
+          "index": 41,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 40,
+            "llm": 61
+          }
+        },
+        {
+          "index": 42,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 14,
+            "llm": 81
+          }
+        },
+        {
+          "index": 43,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 3,
+          "eyes": {
+            "jev": 0,
+            "llm": 77
+          }
+        },
+        {
+          "index": 44,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 1,
+          "eyes": {
+            "jev": 67,
+            "llm": 35
+          }
+        },
+        {
+          "index": 45,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 12,
+            "llm": 71
+          }
+        },
+        {
+          "index": 46,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 35,
+            "llm": 72
+          }
+        },
+        {
+          "index": 47,
+          "winner": "jev",
+          "winner_seat": "computer",
+          "game_points": 3,
+          "eyes": {
+            "jev": 71,
+            "llm": 0
+          }
+        },
+        {
+          "index": 48,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 36,
+            "llm": 67
+          }
+        },
+        {
+          "index": 49,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 1,
+          "eyes": {
+            "jev": 49,
+            "llm": 73
+          }
+        },
+        {
+          "index": 50,
+          "winner": "llm",
+          "winner_seat": "human",
+          "game_points": 2,
+          "eyes": {
+            "jev": 20,
+            "llm": 71
+          }
+        }
+      ]
+    }
+  }
+}

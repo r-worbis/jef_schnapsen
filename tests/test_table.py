@@ -12,9 +12,19 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from schnapsen.cards import Card, full_pack
-from schnapsen.engine import legal_action_ids, match_with_deal, new_match, record_game_points
-from schnapsen.keyfile import KEY_PATH, read_api_key
-from schnapsen.player import perform_computer_turn
+from schnapsen.keyfile import CHAT_KEY_PATH, KEY_PATH, read_api_key, read_chat_api_key, read_chat_settings
+from schnapsen.engine import (
+    apply_action,
+    legal_action_ids,
+    match_with_deal,
+    new_match,
+    record_game_points,
+    start_deal,
+)
+from schnapsen.jev_player import _HeldClient, close_jev_client
+from schnapsen.llm_player import LlmPlayer
+from schnapsen.random_player import RandomPlayer
+from schnapsen.turn import take_ai_turn
 from schnapsen.rules_text import RULES
 from schnapsen.server import Table, make_server
 from schnapsen import server as server_module
@@ -75,10 +85,61 @@ def require_key():
     return key
 
 
+class PageSourceTests(unittest.TestCase):
+    def test_player_choices_and_bound_turn_request(self):
+        page = Path("schnapsen/page.html").read_text(encoding="utf-8")
+        self.assertIn("Mensch", page)
+        self.assertIn("Jev", page)
+        self.assertIn("Zufall", page)
+        left = page.split('id="left-player"', 1)[1].split("</select>", 1)[0]
+        self.assertNotIn("Mensch", left)
+        self.assertIn("Jev", left)
+        self.assertIn("Zufall", left)
+        self.assertIn("LLM", left)
+        self.assertIn('value="random"', page)
+        self.assertIn('value="llm"', page)
+        self.assertIn(">LLM<", page)
+        self.assertNotIn('value="stub"', page)
+        self.assertIn('state.missingChatKey && kind === "llm"', page)
+        self.assertIn("players[state.toPlay]", page)
+        self.assertNotIn('toPlay === "computer"', page)
+
+
 class KeyfileTests(unittest.TestCase):
     def test_gitignore_lists_jef_api(self):
         listed = Path(".gitignore").read_text(encoding="utf-8")
         self.assertIn("jef.api", listed)
+
+    def test_gitignore_lists_chat_api(self):
+        lines = Path(".gitignore").read_text(encoding="utf-8").splitlines()
+        self.assertIn("chat.api", lines)
+
+    def test_helper_reads_a_temporary_chat_key(self):
+        self.assertEqual(CHAT_KEY_PATH.name, "chat.api")
+        missing = Path(tempfile.gettempdir()) / "chat-api-missing-for-tests"
+        self.assertEqual(read_chat_api_key(missing), "")
+        handle = tempfile.NamedTemporaryFile("w", encoding="utf-8", delete=False)
+        try:
+            handle.write("  temp-chat-key\n")
+            handle.close()
+            self.assertEqual(read_chat_api_key(Path(handle.name)), "temp-chat-key")
+        finally:
+            Path(handle.name).unlink(missing_ok=True)
+        labeled = tempfile.NamedTemporaryFile("w", encoding="utf-8", delete=False)
+        try:
+            labeled.write(
+                "url=https://api.openai.com/v1/chat/completions\n"
+                "model=gpt-6-sol\n"
+                "key=temp-chat-key\n"
+            )
+            labeled.close()
+            self.assertEqual(read_chat_api_key(Path(labeled.name)), "temp-chat-key")
+            url, model, key = read_chat_settings(Path(labeled.name))
+            self.assertEqual(url, "https://api.openai.com/v1/chat/completions")
+            self.assertEqual(model, "gpt-6-sol")
+            self.assertEqual(key, "temp-chat-key")
+        finally:
+            Path(labeled.name).unlink(missing_ok=True)
 
     def test_helper_reads_jef_api_and_treats_missing_as_empty(self):
         self.assertEqual(KEY_PATH.name, "jef.api")
@@ -101,6 +162,23 @@ class RulesAndViewTests(unittest.TestCase):
             self.assertIn(topic, lowered)
         self.assertIn("no declaration", lowered)
         self.assertNotIn("wikipedia", lowered)
+
+    def test_missing_chat_key_is_separate_and_hides_the_llm_hand(self):
+        match = seated(
+            "computer",
+            [card("Herz", "Ass"), card("Herz", "König")],
+            [card("Pik", "Dame"), card("Pik", "Bube")],
+            card("Kreuz", "Zehner"),
+            [card("Karo", "Ass")],
+        )
+        match.players = {"human": "llm", "computer": "random"}
+        match.notice = "missing-chat-key"
+        view = human_view(match)
+        self.assertTrue(view["missingChatKey"])
+        self.assertFalse(view["missingKey"])
+        payload = json.dumps({key: value for key, value in view.items() if key != "jev"})
+        for held in match.deal.hands["human"] + match.deal.hands["computer"]:
+            self.assertNotIn(held.label, payload)
 
     def test_fresh_human_view_hides_the_computer_hand_and_the_talon(self):
         match = match_with_deal("computer", full_pack())
@@ -125,7 +203,7 @@ class RulesAndViewTests(unittest.TestCase):
             card("Herz", "Ass"),
             [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
         )
-        perform_computer_turn(match, FakeClient(["play:Karo-König"]))
+        take_ai_turn(match, FakeClient(["play:Karo-König"]))
         view = human_view(match)
         held = "Herz Bube"
         self.assertIn(held, [item.label for item in match.deal.hands["computer"]])
@@ -155,6 +233,54 @@ class RulesAndViewTests(unittest.TestCase):
         for hidden_card in match.deal.hands["human"] + match.deal.talon:
             self.assertNotIn(hidden_card.label, state)
 
+    def test_jev_state_lists_every_awarded_trick_and_still_hides_the_human_hand(self):
+        match = seated(
+            "computer",
+            [card("Pik", "Ass"), card("Pik", "König"), card("Pik", "Dame"), card("Pik", "Bube"), card("Kreuz", "Ass")],
+            [card("Herz", "Bube"), card("Karo", "König"), card("Karo", "Dame"), card("Karo", "Bube"), card("Kreuz", "König")],
+            card("Herz", "Ass"),
+            [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
+        )
+        first = [card("Pik", "Zehner"), card("Herz", "König")]
+        second = [card("Karo", "Ass"), card("Herz", "Zehner")]
+        computer_won = [card("Kreuz", "König"), card("Pik", "Dame")]
+        match.deal.tricks = {"human": [first, second], "computer": [computer_won]}
+        match.deal.won_trick = {"human": True, "computer": True}
+        match.deal.hands["human"] = [card("Pik", "Ass"), card("Pik", "König"), card("Pik", "Bube"), card("Kreuz", "Ass")]
+        match.deal.to_play = "computer"
+        state = jev_state(match)
+        self.assertIn("Pik Zehner", state)
+        self.assertIn("Herz König", state)
+        self.assertIn("Karo Ass", state)
+        self.assertIn("Herz Zehner", state)
+        self.assertIn("Kreuz König", state)
+        self.assertIn("Pik Dame", state)
+        self.assertIn("Opponent tricks:", state)
+        self.assertIn("Your tricks:", state)
+        self.assertIn(RULES, state)
+        for held in match.deal.hands["computer"]:
+            self.assertIn(held.label, state)
+        self.assertNotIn("Pik Ass", state)
+        self.assertNotIn("Pik König", state)
+        self.assertNotIn("Kreuz Zehner", state)
+
+    def test_human_view_still_shows_only_the_computer_first_trick(self):
+        match = seated(
+            "human",
+            [card("Pik", "Ass")],
+            [card("Herz", "Bube"), card("Karo", "König")],
+            card("Herz", "Ass"),
+            [],
+        )
+        first = [card("Herz", "Zehner"), card("Pik", "Bube")]
+        later = [card("Karo", "Ass"), card("Kreuz", "Ass")]
+        match.deal.tricks = {"human": [], "computer": [first, later]}
+        view = human_view(match)
+        self.assertEqual(view["opponentFirstTrick"], [["Herz Zehner", "Pik Bube"]])
+        payload = json.dumps({k: v for k, v in view.items() if k != "jev"})
+        self.assertNotIn("Karo Ass", payload)
+        self.assertNotIn("Kreuz Ass", payload)
+
 
 class PlayerTests(unittest.TestCase):
     def setUp(self):
@@ -169,7 +295,7 @@ class PlayerTests(unittest.TestCase):
 
     def test_chosen_action_is_the_only_one_applied(self):
         client = FakeClient(["play:Karo-König"])
-        perform_computer_turn(self.match, client)
+        take_ai_turn(self.match, client)
         state = client.calls[0]["state"]
         self.assertIn("Herz Bube", state)
         self.assertIn("Karo König", state)
@@ -182,7 +308,7 @@ class PlayerTests(unittest.TestCase):
     def test_illegal_answer_is_retried_then_fallback_and_missing_key_stops(self):
         legal = sorted(legal_action_ids(self.match))
         retry = FakeClient(["nope", "play:Karo-König"])
-        perform_computer_turn(self.match, retry)
+        take_ai_turn(self.match, retry)
         self.assertEqual(len(retry.calls), 2)
         self.assertEqual(self.match.deal.current_trick[0][1], card("Karo", "König"))
         self.assertFalse(self.match.choice_replaced)
@@ -195,7 +321,7 @@ class PlayerTests(unittest.TestCase):
             [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
         )
         failed = FakeClient(["nope", "still-nope"])
-        perform_computer_turn(fresh, failed)
+        take_ai_turn(fresh, failed)
         self.assertEqual(len(failed.calls), 2)
         self.assertTrue(fresh.choice_replaced)
         self.assertEqual(fresh.deal.current_trick[0][1].token, legal[0].split(":")[-1])
@@ -208,7 +334,7 @@ class PlayerTests(unittest.TestCase):
             [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
         )
         broken = FakeClient([RuntimeError("down")])
-        perform_computer_turn(errored, broken)
+        take_ai_turn(errored, broken)
         self.assertEqual(len(broken.calls), 1)
         self.assertTrue(errored.choice_replaced)
         self.assertEqual(len(errored.deal.current_trick), 1)
@@ -221,9 +347,9 @@ class PlayerTests(unittest.TestCase):
             [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
         )
         quiet = FakeClient(["play:Karo-König"])
-        with patch("schnapsen.player.read_api_key", return_value=""):
+        with patch("schnapsen.turn.read_api_key", return_value=""):
             with patch.dict(os.environ, {"TYPESAFE_API_KEY": "env-key"}):
-                perform_computer_turn(untouched, quiet)
+                take_ai_turn(untouched, quiet)
         self.assertEqual(quiet.calls, [])
         self.assertEqual(untouched.deal.current_trick, [])
         self.assertEqual(untouched.notice, "missing-key")
@@ -235,21 +361,118 @@ class PlayerTests(unittest.TestCase):
         class FakeLive:
             def __init__(self, **kwargs):
                 captured.update(kwargs)
+                self.enters = 0
+                self.exits = 0
 
             def __enter__(self):
+                self.enters += 1
                 return FakeClient(["play:Karo-König"])
 
             def __exit__(self, *args):
+                self.exits += 1
                 return False
 
         with patch("typesafe_sdk.TypeSafeClient", FakeLive):
-            perform_computer_turn(self.match)
+            take_ai_turn(self.match)
         self.assertTrue(captured.get("api_key") == key)
+        live = getattr(self.match, "_jev_client")
+        self.assertEqual(live.owner.enters, 1)
+        self.assertEqual(live.owner.exits, 0)
+        self.assertEqual(self.match.deal.current_trick[0][1], card("Karo", "König"))
+        close_jev_client(self.match)
+        self.assertEqual(live.owner.exits, 1)
+        self.assertFalse(hasattr(self.match, "_jev_client"))
+
+    def _fresh_seat(self):
+        return seated(
+            "computer",
+            [card("Pik", "Ass"), card("Pik", "König"), card("Pik", "Dame"), card("Pik", "Bube"), card("Kreuz", "Ass")],
+            [card("Herz", "Bube"), card("Karo", "König"), card("Karo", "Dame"), card("Karo", "Bube"), card("Kreuz", "König")],
+            card("Herz", "Ass"),
+            [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
+        )
+
+    def test_one_jev_client_lasts_for_the_match(self):
+        made = []
+        script = []
+
+        class FakeLive:
+            def __init__(self, **kwargs):
+                self.exits = 0
+                self.calls = 0
+                made.append(self)
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                self.exits += 1
+                return False
+
+            def system_one(self, state, questions):
+                self.calls += 1
+                item = script.pop(0) if script else sorted(questions["play"].criteria)[0]
+                return SimpleNamespace(choices={"play": SimpleNamespace(choice=item)})
+
+        def both_jev(match):
+            match.players = {"human": "jev", "computer": "jev"}
+            return match
+
+        with patch("typesafe_sdk.TypeSafeClient", FakeLive):
+            match = both_jev(self.match)
+            take_ai_turn(match)
+            take_ai_turn(match)
+            self.assertEqual(len(made), 1)
+            self.assertEqual(made[0].calls, 2)
+            self.assertEqual(made[0].exits, 0)
+
+            retry = both_jev(self._fresh_seat())
+            legal = sorted(legal_action_ids(retry))
+            script[:] = ["nope", legal[0]]
+            take_ai_turn(retry)
+            self.assertEqual(len(made), 2)
+            self.assertEqual(made[1].calls, 2)
+            self.assertEqual(made[1].exits, 0)
+            self.assertTrue(retry.deal.current_trick)
+
+            later = both_jev(self._fresh_seat())
+            take_ai_turn(later)
+            start_deal(later)
+            take_ai_turn(later)
+            self.assertEqual(len(made), 3)
+            self.assertGreaterEqual(made[2].calls, 2)
+            close_jev_client(later)
+            self.assertEqual(made[2].exits, 1)
+            follow = both_jev(self._fresh_seat())
+            take_ai_turn(follow)
+            self.assertEqual(len(made), 4)
+            self.assertIsNot(made[2], made[3])
+
+            quiet = self._fresh_seat()
+            quiet.players = {"human": "random", "computer": "random"}
+            before = len(made)
+            take_ai_turn(quiet, random_player=RandomPlayer(lambda hand: hand[0]))
+            self.assertEqual(len(made), before)
+
+            supplied = FakeClient(["play:Karo-König"])
+            supplied.exits = 0
+
+            def leave(*args):
+                supplied.exits += 1
+                return False
+
+            supplied.__exit__ = leave
+            owned = both_jev(self._fresh_seat())
+            take_ai_turn(owned, supplied)
+            close_jev_client(owned)
+            self.assertEqual(len(supplied.calls), 1)
+            self.assertEqual(supplied.exits, 0)
+            self.assertEqual(len(made), before)
 
     def test_kept_exchange_records_answers_failures_and_survives_a_missing_key(self):
         key = require_key()
         client = FakeClient(["play:Karo-König"])
-        perform_computer_turn(self.match, client)
+        take_ai_turn(self.match, client)
         exchange = self.match.jev_exchange
         self.assertIsNotNone(exchange)
         self.assertEqual(exchange.rules, RULES)
@@ -271,7 +494,7 @@ class PlayerTests(unittest.TestCase):
             card("Herz", "Ass"),
             [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
         )
-        perform_computer_turn(retried, FakeClient(["nope", "play:Karo-König"]))
+        take_ai_turn(retried, FakeClient(["nope", "play:Karo-König"]))
         self.assertEqual(retried.jev_exchange.answers, ["nope", "play:Karo-König"])
         self.assertFalse(retried.jev_exchange.failed)
         self.assertEqual(retried.jev_exchange.rules, RULES)
@@ -286,7 +509,7 @@ class PlayerTests(unittest.TestCase):
             [card("Kreuz", "Zehner"), card("Kreuz", "Dame"), card("Kreuz", "Bube")],
         )
         legal = sorted(legal_action_ids(errored))
-        perform_computer_turn(errored, FakeClient([RuntimeError("down")]))
+        take_ai_turn(errored, FakeClient([RuntimeError("down")]))
         self.assertEqual(errored.jev_exchange.answers, [])
         self.assertTrue(errored.jev_exchange.failed)
         self.assertTrue(errored.choice_replaced)
@@ -294,11 +517,124 @@ class PlayerTests(unittest.TestCase):
 
         kept = errored.jev_exchange
         errored.deal.to_play = "computer"
-        with patch("schnapsen.player.read_api_key", return_value=""):
-            perform_computer_turn(errored, FakeClient(["play:Karo-König"]))
+        with patch("schnapsen.turn.read_api_key", return_value=""):
+            take_ai_turn(errored, FakeClient(["play:Karo-König"]))
         self.assertIs(errored.jev_exchange, kept)
         self.assertEqual(errored.jev_exchange.answers, [])
         self.assertTrue(errored.jev_exchange.failed)
+
+    def test_jev_on_the_right_is_shown_that_hand_only(self):
+        match = seated(
+            "human",
+            [card("Herz", "Bube"), card("Karo", "König")],
+            [card("Pik", "Ass")],
+            card("Kreuz", "Ass"),
+            [card("Kreuz", "Zehner")],
+        )
+        match.players = {"human": "jev", "computer": "random"}
+        state = jev_state(match)
+        self.assertIn("Herz Bube", state)
+        self.assertIn("Karo König", state)
+        self.assertNotIn("Pik Ass", state)
+
+
+class StubTests(unittest.TestCase):
+    def test_one_legal_card_is_a_plain_play_and_does_not_call_jev(self):
+        match = seated(
+            "computer",
+            [card("Pik", "Ass")],
+            [card("Karo", "König"), card("Herz", "Bube")],
+            card("Kreuz", "Ass"),
+            [card("Kreuz", "Zehner"), card("Kreuz", "König")],
+        )
+        match.players = {"human": "human", "computer": "random"}
+        client = FakeClient(["play:Karo-König"])
+        take_ai_turn(match, client, RandomPlayer(lambda hand: card("Karo", "König")))
+        self.assertEqual(client.calls, [])
+        self.assertEqual(match.deal.current_trick, [("computer", card("Karo", "König"))])
+        action = match.deal.last_action
+        self.assertFalse(action.exchange)
+        self.assertFalse(action.closed)
+        self.assertIsNone(action.marriage)
+        self.assertFalse(match.choice_replaced)
+
+    def test_illegal_card_is_unchanged_until_the_second_proposal(self):
+        match = seated(
+            "human",
+            [card("Karo", "König")],
+            [card("Karo", "Bube"), card("Herz", "Ass")],
+            card("Pik", "Ass"),
+            [],
+        )
+        match.deal.trump_card = None
+        apply_action(match, "play:Karo-König")
+        match.players["computer"] = "random"
+        seen = []
+
+        def choose(hand):
+            seen.append(len(match.deal.current_trick))
+            if len(seen) == 1:
+                return card("Herz", "Ass")
+            self.assertEqual(match.deal.current_trick, [("human", card("Karo", "König"))])
+            self.assertEqual(match.deal.to_play, "computer")
+            return card("Karo", "Bube")
+
+        take_ai_turn(match, random_player=RandomPlayer(choose))
+        self.assertEqual(seen, [1, 1])
+        self.assertEqual(match.deal.current_trick[-1][1], card("Karo", "Bube"))
+        self.assertFalse(match.choice_replaced)
+
+    def test_two_illegal_cards_use_the_predetermined_action(self):
+        match = seated(
+            "human",
+            [card("Karo", "König")],
+            [card("Karo", "Bube"), card("Herz", "Ass")],
+            card("Pik", "Ass"),
+            [],
+        )
+        match.deal.trump_card = None
+        apply_action(match, "play:Karo-König")
+        match.players["computer"] = "random"
+        legal = sorted(legal_action_ids(match))
+        take_ai_turn(match, random_player=RandomPlayer(lambda hand: card("Herz", "Ass")))
+        self.assertTrue(match.choice_replaced)
+        self.assertEqual(match.deal.current_trick[-1][1].token, legal[0].split(":")[-1])
+
+    def test_two_stubs_award_a_trick_without_seen(self):
+        match = seated(
+            "computer",
+            [card("Karo", "Ass")],
+            [card("Pik", "Ass")],
+            card("Herz", "Bube"),
+            [card("Kreuz", "Ass"), card("Kreuz", "Zehner")],
+        )
+        match.players = {"human": "random", "computer": "random"}
+        planned = [card("Pik", "Ass"), card("Karo", "Ass")]
+        client = FakeClient([])
+        stub = RandomPlayer(lambda hand: planned.pop(0))
+        take_ai_turn(match, client, stub)
+        take_ai_turn(match, client, stub)
+        self.assertEqual(client.calls, [])
+        self.assertEqual(match.deal.current_trick, [])
+        self.assertNotIn("seen", legal_action_ids(match))
+        self.assertEqual(match.deal.tricks["computer"][-1], [card("Pik", "Ass"), card("Karo", "Ass")])
+
+    def test_stub_turn_leaves_the_kept_jev_exchange(self):
+        match = seated(
+            "computer",
+            [card("Pik", "Ass")],
+            [card("Karo", "König"), card("Herz", "Bube")],
+            card("Kreuz", "Ass"),
+            [card("Kreuz", "Zehner"), card("Kreuz", "König")],
+        )
+        take_ai_turn(match, FakeClient(["play:Karo-König"]))
+        kept = match.jev_exchange
+        match.deal.phase = "play"
+        match.deal.to_play = "computer"
+        match.players["computer"] = "random"
+        take_ai_turn(match, random_player=RandomPlayer(lambda hand: hand[0]))
+        self.assertIs(match.jev_exchange, kept)
+        self.assertEqual(kept.answers, ["play:Karo-König"])
 
 
 def serve(table):
@@ -358,6 +694,7 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(status, 200)
             self.assertEqual(client.calls, [])
             self.assertEqual(len(view["yourHand"]), 5)
+            self.assertEqual(view["players"], {"human": "human", "computer": "jev"})
             before = list(match.deal.hands["human"])
             status, refused = request(base + "/api/action", {"id": "play:No-Such"})
             self.assertEqual(status, 400)
@@ -368,6 +705,65 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(status, 200)
             self.assertTrue(played["applied"])
             self.assertTrue(any(item["card"] == "Herz Ass" for item in played["trick"]) or _card_was_played(match, "Herz Ass"))
+        finally:
+            stop(httpd)
+
+    def test_match_binding_hides_two_stubs_and_refuses_a_person_on_the_left(self):
+        match = match_with_deal("computer", full_pack())
+        table = Table(match)
+        httpd, base = serve(table)
+        try:
+            status, before = request(base + "/api/state")
+            self.assertEqual(status, 200)
+            self.assertEqual(len(before["yourHand"]), 5)
+            status, denied = request(base + "/api/match", {"human": "jev", "computer": "human"})
+            self.assertEqual(status, 400)
+            self.assertEqual(denied["yourHand"], before["yourHand"])
+            self.assertEqual(denied["trump"], before["trump"])
+            self.assertIs(table.match, match)
+            status, unknown = request(base + "/api/match", {"human": "wizard", "computer": "jev"})
+            self.assertEqual(status, 400)
+            self.assertIs(table.match, match)
+            status, old_kind = request(base + "/api/match", {"human": "stub", "computer": "random"})
+            self.assertEqual(status, 400)
+            self.assertIs(table.match, match)
+            status, started = request(base + "/api/match", {"human": "random", "computer": "random"})
+            self.assertEqual(status, 200)
+            self.assertEqual(started["players"], {"human": "random", "computer": "random"})
+            self.assertEqual(started["yourHand"], [])
+            self.assertEqual(started["yourCount"], 5)
+            self.assertEqual(started["opponentCount"], 5)
+            payload = json.dumps(started)
+            hidden = (
+                table.match.deal.hands["human"]
+                + table.match.deal.hands["computer"]
+                + table.match.deal.talon
+            )
+            for hidden_card in hidden:
+                self.assertNotIn(hidden_card.label, payload)
+        finally:
+            stop(httpd)
+
+    def test_stub_turn_plays_when_the_key_file_is_missing(self):
+        match = seated(
+            "computer",
+            [card("Pik", "Ass")],
+            [card("Karo", "König")],
+            card("Herz", "Bube"),
+            [card("Kreuz", "Ass"), card("Kreuz", "Zehner")],
+        )
+        match.players = {"human": "random", "computer": "random"}
+        client = FakeClient(["play:Karo-König"])
+        table = Table(match, client)
+        table.random_player = RandomPlayer(lambda hand: card("Karo", "König"))
+        httpd, base = serve(table)
+        try:
+            with patch("schnapsen.turn.read_api_key", return_value=""):
+                status, view = request(base + "/api/computer", {})
+            self.assertEqual(status, 200)
+            self.assertEqual(client.calls, [])
+            self.assertFalse(view["missingKey"])
+            self.assertEqual(view["trick"], [{"seat": "computer", "card": "Karo König"}])
         finally:
             stop(httpd)
 
@@ -485,7 +881,7 @@ class ServerTests(unittest.TestCase):
         table = Table(match, client)
         httpd, base = serve(table)
         try:
-            with patch("schnapsen.player.read_api_key", return_value=""):
+            with patch("schnapsen.turn.read_api_key", return_value=""):
                 with patch.dict(os.environ, {"TYPESAFE_API_KEY": "env-key"}):
                     status, view = request(base + "/api/computer", {})
             self.assertEqual(status, 200)
@@ -561,6 +957,130 @@ def human_choice(view):
         if action_id.startswith("play:"):
             return action_id
     return ids[0]
+
+
+    def test_a_new_match_closes_both_clients(self):
+        jev = []
+        chat = []
+
+        class FakeLive:
+            def __init__(self, **kwargs):
+                self.exits = 0
+                jev.append(self)
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                self.exits += 1
+                return False
+
+            def system_one(self, state, questions):
+                action = sorted(questions["play"].criteria)[0]
+                return SimpleNamespace(choices={"play": SimpleNamespace(choice=action)})
+
+        class FakeConn:
+            def __init__(self, host, port=None, **kwargs):
+                self.closed = False
+                chat.append(self)
+
+            def request(self, method, path, body=None, headers=None):
+                self.body = json.loads(body)
+
+            def getresponse(self):
+                action = self.body["response_format"]["json_schema"]["schema"]["properties"]["action"]["enum"][0]
+                content = json.dumps({"action": action})
+                raw = json.dumps({"choices": [{"message": {"content": content}}]}).encode()
+                return SimpleNamespace(status=200, read=lambda: raw)
+
+            def close(self):
+                self.closed = True
+
+        match = seated(
+            "computer",
+            [card("Pik", "Ass")],
+            [card("Herz", "Ass")],
+            card("Kreuz", "Ass"),
+            [card("Kreuz", "Zehner")],
+        )
+        match.players = {"human": "llm", "computer": "jev"}
+        table = Table(match)
+        player = LlmPlayer(key="present")
+        with (
+            patch("typesafe_sdk.TypeSafeClient", FakeLive),
+            patch("schnapsen.llm_player.http.client.HTTPSConnection", FakeConn),
+            patch("schnapsen.turn.read_api_key", return_value="present"),
+            patch("schnapsen.jev_player.read_api_key", return_value="present"),
+            patch("schnapsen.turn.read_chat_api_key", return_value="present"),
+        ):
+            take_ai_turn(table.match, llm_player=player)
+            take_ai_turn(table.match, llm_player=player)
+            self.assertEqual(len(jev), 1)
+            self.assertEqual(len(chat), 1)
+            status, _payload = server_module.start_match(table, "llm", "jev")
+            self.assertEqual(status, 200)
+            self.assertEqual(jev[0].exits, 1)
+            self.assertTrue(chat[0].closed)
+            seen = set()
+            for _ in range(4):
+                deal = table.match.deal
+                if deal is None or deal.phase != "play":
+                    break
+                seen.add(table.match.players[deal.to_play])
+                take_ai_turn(table.match, llm_player=player)
+                if seen >= {"jev", "llm"}:
+                    break
+        self.assertEqual(seen, {"jev", "llm"})
+        self.assertEqual(len(jev), 2)
+        self.assertEqual(len(chat), 2)
+        self.assertEqual(jev[1].exits, 0)
+        self.assertFalse(chat[1].closed)
+
+    def test_stopping_the_server_closes_both_clients(self):
+        holder = {}
+
+        class Owner:
+            def __init__(self):
+                self.exits = 0
+
+            def __exit__(self, *args):
+                self.exits += 1
+                return False
+
+        class Conn:
+            def __init__(self):
+                self.closed = False
+
+            def close(self):
+                self.closed = True
+
+        def init(table, match, client=None):
+            table.match = match
+            table.client = client
+            table.random_player = None
+            table.llm_player = None
+            table.lock = threading.Lock()
+            owner = Owner()
+            conn = Conn()
+            match._jev_client = _HeldClient(owner, owner)
+            match._chat_connection = conn
+            holder["owner"] = owner
+            holder["conn"] = conn
+
+        class Dummy:
+            def serve_forever(self):
+                raise KeyboardInterrupt
+
+            def shutdown(self):
+                return None
+
+        with (
+            patch("schnapsen.server.Table.__init__", init),
+            patch("schnapsen.server.make_server", return_value=Dummy()),
+        ):
+            server_module.main()
+        self.assertEqual(holder["owner"].exits, 1)
+        self.assertTrue(holder["conn"].closed)
 
 
 class MatchTests(unittest.TestCase):
